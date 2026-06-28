@@ -1,0 +1,3459 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Enterprise Python package management — deployment, administration, and API reference.">
+      
+      
+      
+        <link rel="canonical" href="https://docs.sentari.dev/1.0/administration/">
+      
+      
+        <link rel="prev" href="../agent/technical-reference/">
+      
+      
+        <link rel="next" href="../licensing/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>Administration - Sentari Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#administration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Sentari Documentation" class="md-header__button md-logo" aria-label="Sentari Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sentari Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Administration
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../getting-started/quickstart/" class="md-tabs__link">
+          
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../deployment/" class="md-tabs__link">
+          
+  
+  Deployment
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../agent/" class="md-tabs__link">
+          
+  
+  Agent
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+    
+  
+  Administration
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../licensing/" class="md-tabs__link">
+        
+  
+    
+  
+  Licensing
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../api/" class="md-tabs__link">
+        
+  
+    
+  
+  API Reference
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../troubleshooting/" class="md-tabs__link">
+        
+  
+    
+  
+  Troubleshooting
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../release-notes/" class="md-tabs__link">
+        
+  
+    
+  
+  Release Notes
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Sentari Documentation" class="md-nav__button md-logo" aria-label="Sentari Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Sentari Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quickstart
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Concepts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Deployment
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Deployment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/docker-compose/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker Compose
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/openshift/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenShift
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/kubernetes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kubernetes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/private-registry/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Private Registry
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/postgresql/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PostgreSQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/configuration-reference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuration Reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Agent
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Agent
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Editions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent/install/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent/technical-reference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Technical Reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Administration
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Administration
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-service-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Service Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Service Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#internal-ca" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal CA
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      License
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-health-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Health Checks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Health Checks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Compose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenShift
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-health-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      API health endpoint
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-starting-and-stopping" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Starting and Stopping
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Starting and Stopping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker-compose_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Compose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openshift_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenShift
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-database-backup-and-restore" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Database Backup and Restore
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Database Backup and Restore">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backup-docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backup — Docker Compose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backup-openshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backup — OpenShift
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restore-docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restore — Docker Compose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restore-openshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restore — OpenShift
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-backup-schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommended backup schedule
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-secret-rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Secret Rotation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Secret Rotation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jwt-secret-key-sentari_secret_key" class="md-nav__link">
+    <span class="md-ellipsis">
+      JWT secret key (SENTARI_SECRET_KEY)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ca-key-passphrase-sentari_ca_passphrase_key" class="md-nav__link">
+    <span class="md-ellipsis">
+      CA key passphrase (SENTARI_CA_PASSPHRASE_KEY)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-password-postgres_password" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database password (POSTGRES_PASSWORD)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-enrollment-token-sentari_enrollment_token" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent enrollment token (SENTARI_ENROLLMENT_TOKEN)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis-password-redis_password" class="md-nav__link">
+    <span class="md-ellipsis">
+      Redis password (REDIS_PASSWORD)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-user-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. User Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. User Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap-admin-first-startup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bootstrap admin (first startup)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-additional-users-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create additional users (dashboard)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ldap-active-directory-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      LDAP / Active Directory integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oidc-sso-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      OIDC / SSO integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-factor-authentication-mfa-totp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-factor authentication (MFA / TOTP)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-agent-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Agent Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Agent Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#monitor-enrolled-devices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitor enrolled devices
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rotate-the-enrollment-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rotate the enrollment token
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-agent-connectivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check agent connectivity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#re-enrol-a-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      Re-enrol a device
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enabling-container-image-scanning-agent-side-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enabling container-image scanning (agent-side only)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-dashboard-navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Dashboard Navigation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Dashboard Navigation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fleet-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fleet section
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime-version-tracking-and-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      Runtime version tracking and export
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#navigation-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Navigation reference
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-cve-feed-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. CVE Feed Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. CVE Feed Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#online-mode-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      Online mode (default)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-sync-trigger" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manual sync trigger
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#offline-air-gap-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Offline / air-gap mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime-eol-feed-air-gap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Runtime-EOL feed (air-gap)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-alert-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Alert Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Alert Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#email-alerts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Email alerts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siem-webhook" class="md-nav__link">
+    <span class="md-ellipsis">
+      SIEM webhook
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-the-alert-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test the alert pipeline
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-proxy-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Proxy Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Proxy Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker-compose_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Compose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openshift-helm" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenShift (Helm)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent proxy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-proxy-connectivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verify proxy connectivity
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-log-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Log Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Log Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker-compose_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Compose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openshift_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenShift
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Log level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-to-look-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      What to look for
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-updating-sentari" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Updating Sentari
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Updating Sentari">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#before-every-upgrade" class="md-nav__link">
+    <span class="md-ellipsis">
+      Before every upgrade
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-compose_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Compose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openshift-helm_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenShift (Helm)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rolling-back" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rolling back
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-task-monitoring-with-flower" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Task Monitoring with Flower
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. Task Monitoring with Flower">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-you-need-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      When you need it
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enabling-on-docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enabling on Docker Compose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enabling-on-helm-openshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enabling on Helm / OpenShift
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-to-look-at-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      What to look at first
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disabling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disabling
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../licensing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Licensing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Release Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-service-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Service Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Service Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#internal-ca" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal CA
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      License
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-health-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Health Checks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Health Checks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Compose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenShift
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-health-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      API health endpoint
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-starting-and-stopping" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Starting and Stopping
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Starting and Stopping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker-compose_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Compose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openshift_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenShift
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-database-backup-and-restore" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Database Backup and Restore
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Database Backup and Restore">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backup-docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backup — Docker Compose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backup-openshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backup — OpenShift
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restore-docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restore — Docker Compose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restore-openshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restore — OpenShift
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-backup-schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommended backup schedule
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-secret-rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Secret Rotation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Secret Rotation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jwt-secret-key-sentari_secret_key" class="md-nav__link">
+    <span class="md-ellipsis">
+      JWT secret key (SENTARI_SECRET_KEY)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ca-key-passphrase-sentari_ca_passphrase_key" class="md-nav__link">
+    <span class="md-ellipsis">
+      CA key passphrase (SENTARI_CA_PASSPHRASE_KEY)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-password-postgres_password" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database password (POSTGRES_PASSWORD)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-enrollment-token-sentari_enrollment_token" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent enrollment token (SENTARI_ENROLLMENT_TOKEN)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis-password-redis_password" class="md-nav__link">
+    <span class="md-ellipsis">
+      Redis password (REDIS_PASSWORD)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-user-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. User Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. User Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap-admin-first-startup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bootstrap admin (first startup)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-additional-users-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create additional users (dashboard)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ldap-active-directory-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      LDAP / Active Directory integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oidc-sso-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      OIDC / SSO integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-factor-authentication-mfa-totp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-factor authentication (MFA / TOTP)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-agent-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Agent Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Agent Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#monitor-enrolled-devices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitor enrolled devices
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rotate-the-enrollment-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rotate the enrollment token
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-agent-connectivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check agent connectivity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#re-enrol-a-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      Re-enrol a device
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enabling-container-image-scanning-agent-side-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enabling container-image scanning (agent-side only)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-dashboard-navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Dashboard Navigation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Dashboard Navigation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fleet-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fleet section
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime-version-tracking-and-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      Runtime version tracking and export
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#navigation-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Navigation reference
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-cve-feed-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. CVE Feed Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. CVE Feed Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#online-mode-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      Online mode (default)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-sync-trigger" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manual sync trigger
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#offline-air-gap-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Offline / air-gap mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime-eol-feed-air-gap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Runtime-EOL feed (air-gap)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-alert-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Alert Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Alert Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#email-alerts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Email alerts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siem-webhook" class="md-nav__link">
+    <span class="md-ellipsis">
+      SIEM webhook
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-the-alert-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test the alert pipeline
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-proxy-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Proxy Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Proxy Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker-compose_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Compose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openshift-helm" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenShift (Helm)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent proxy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-proxy-connectivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verify proxy connectivity
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-log-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Log Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Log Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker-compose_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Compose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openshift_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenShift
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Log level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-to-look-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      What to look for
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-updating-sentari" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Updating Sentari
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Updating Sentari">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#before-every-upgrade" class="md-nav__link">
+    <span class="md-ellipsis">
+      Before every upgrade
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-compose_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Compose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openshift-helm_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenShift (Helm)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rolling-back" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rolling back
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-task-monitoring-with-flower" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Task Monitoring with Flower
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. Task Monitoring with Flower">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-you-need-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      When you need it
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enabling-on-docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enabling on Docker Compose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enabling-on-helm-openshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enabling on Helm / OpenShift
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-to-look-at-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      What to look at first
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disabling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disabling
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="administration">Administration<a class="headerlink" href="#administration" title="Permanent link">&para;</a></h1>
+<p><strong>Audience:</strong> IT administrators managing a Sentari deployment at a government agency or regulated enterprise</p>
+<p><strong>Applies to:</strong> Docker Compose and OpenShift (Helm) deployments</p>
+<hr />
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="#1-service-overview">Service Overview</a></li>
+<li><a href="#2-health-checks">Health Checks</a></li>
+<li><a href="#3-starting-and-stopping">Starting and Stopping</a></li>
+<li><a href="#4-database-backup-and-restore">Database Backup and Restore</a></li>
+<li><a href="#5-secret-rotation">Secret Rotation</a></li>
+<li><a href="#6-user-management">User Management</a></li>
+<li><a href="#7-agent-management">Agent Management</a></li>
+<li><a href="#8-dashboard-navigation">Dashboard Navigation</a></li>
+<li><a href="#9-cve-feed-configuration">CVE Feed Configuration</a></li>
+<li><a href="#10-alert-configuration">Alert Configuration</a></li>
+<li><a href="#11-proxy-configuration">Proxy Configuration</a></li>
+<li><a href="#12-log-management">Log Management</a></li>
+<li><a href="#13-updating-sentari">Updating Sentari</a></li>
+<li><a href="#14-task-monitoring-with-flower">Task Monitoring with Flower</a></li>
+</ol>
+<hr />
+<h2 id="1-service-overview">1. Service Overview<a class="headerlink" href="#1-service-overview" title="Permanent link">&para;</a></h2>
+<p>Sentari runs as five services. Each service has a specific role; understanding them helps you diagnose problems and apply the right corrective action.</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Container / Workload name</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>sentari-api</strong></td>
+<td><code>sentari-api</code></td>
+<td>FastAPI application server. Serves the web dashboard and all REST API endpoints. Initialises the internal CA and bootstrap admin on first startup.</td>
+</tr>
+<tr>
+<td><strong>sentari-worker</strong></td>
+<td><code>sentari-worker</code></td>
+<td>Celery worker. Executes asynchronous tasks: CVE correlation after a scan upload, SIEM webhook delivery, email alert dispatch. Scales horizontally.</td>
+</tr>
+<tr>
+<td><strong>sentari-beat</strong></td>
+<td><code>sentari-beat</code></td>
+<td>Celery Beat scheduler. Fires periodic tasks, including the daily CVE feed synchronisation. <strong>Exactly one instance must run at all times.</strong> Running multiple Beat processes causes duplicate task execution.</td>
+</tr>
+<tr>
+<td><strong>db</strong></td>
+<td><code>sentari-db</code></td>
+<td>TimescaleDB 2.14 on PostgreSQL 16. Stores all application data: devices, packages, CVE correlations, audit logs, compliance snapshots.</td>
+</tr>
+<tr>
+<td><strong>redis</strong></td>
+<td><code>sentari-redis</code></td>
+<td>Redis 7. Acts as the Celery message broker and result backend. All task queuing passes through Redis.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="internal-ca">Internal CA<a class="headerlink" href="#internal-ca" title="Permanent link">&para;</a></h3>
+<p>On first startup, <code>sentari-api</code> generates a self-signed RSA-4096 CA keypair stored in <code>/etc/sentari/ca/</code> (Docker volume <code>ca-data</code>, or a PVC in Kubernetes). This CA issues ECDSA P-256 client certificates to enrolling agents for mTLS authentication. The CA data volume is shared between <code>sentari-api</code> and <code>sentari-worker</code>.</p>
+<h3 id="license">License<a class="headerlink" href="#license" title="Permanent link">&para;</a></h3>
+<p>If a <code>SENTARI_LICENSE_KEY</code> is configured, it is validated at startup and periodically thereafter. Without a valid license the application enters <strong>read-only mode</strong>: GET requests and agent scans continue to work, but management writes (user creation, policy changes, agent registration) return HTTP 402. The dashboard displays a banner indicating the license state.</p>
+<hr />
+<h2 id="2-health-checks">2. Health Checks<a class="headerlink" href="#2-health-checks" title="Permanent link">&para;</a></h2>
+<h3 id="docker-compose">Docker Compose<a class="headerlink" href="#docker-compose" title="Permanent link">&para;</a></h3>
+<p>Check the status and health of all services:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>deploy
+docker<span class="w"> </span>compose<span class="w"> </span>ps
+</code></pre></div>
+<p>Expected output when everything is healthy:</p>
+<div class="highlight"><pre><span></span><code>NAME                IMAGE                     STATUS
+sentari-api         ghcr.io/sentari-dev/sentari/server    Up (healthy)
+sentari-worker      ghcr.io/sentari-dev/sentari/server    Up (healthy)
+sentari-beat        ghcr.io/sentari-dev/sentari/server    Up (healthy)
+sentari-docs        ghcr.io/sentari-dev/sentari/docs      Up (healthy)
+sentari-db          timescale/timescaledb                 Up (healthy)
+sentari-redis       redis:7.2-alpine                      Up (healthy)
+</code></pre></div>
+<p>A service in <code>Up (unhealthy)</code> or <code>Up (health: starting)</code> state needs investigation. Check its logs:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">50</span><span class="w"> </span>&lt;service-name&gt;
+</code></pre></div>
+<h3 id="openshift">OpenShift<a class="headerlink" href="#openshift" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-l<span class="w"> </span>app.kubernetes.io/instance<span class="o">=</span>sentari
+</code></pre></div>
+<p>Check a specific pod's readiness and recent events:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>&lt;pod-name&gt;
+</code></pre></div>
+<h3 id="api-health-endpoint">API health endpoint<a class="headerlink" href="#api-health-endpoint" title="Permanent link">&para;</a></h3>
+<p>The <code>/api/health</code> endpoint verifies database and Redis connectivity. It returns HTTP 200 when both backends are reachable, or HTTP 503 with a list of unreachable components if one or both are down.</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>https://&lt;server-hostname&gt;/api/health
+</code></pre></div>
+<p>Healthy response:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">}</span>
+</code></pre></div>
+<p>Degraded response (database unreachable):</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;degraded&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;unreachable&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;database&quot;</span><span class="p">]}</span>
+</code></pre></div>
+<p>Use this endpoint in your monitoring system. A 503 response should trigger an alert to your operations team.</p>
+<hr />
+<h2 id="3-starting-and-stopping">3. Starting and Stopping<a class="headerlink" href="#3-starting-and-stopping" title="Permanent link">&para;</a></h2>
+<h3 id="docker-compose_1">Docker Compose<a class="headerlink" href="#docker-compose_1" title="Permanent link">&para;</a></h3>
+<p><strong>Start all services:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>deploy
+docker<span class="w"> </span>compose<span class="w"> </span>--env-file<span class="w"> </span>.env<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+<p>The first startup includes Alembic database migrations. Allow up to 60 seconds before the API becomes available.</p>
+<p><strong>Stop all services (data preserved):</strong></p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>down
+</code></pre></div>
+<p><strong>Restart a single service</strong> (for example after a configuration change):</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>restart<span class="w"> </span>sentari-api
+</code></pre></div>
+<p><strong>Restart all application services</strong> (not the database or Redis):</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>restart<span class="w"> </span>sentari-api<span class="w"> </span>sentari-worker<span class="w"> </span>sentari-beat
+</code></pre></div>
+<p><strong>Correct shutdown order</strong> when performing maintenance that requires taking services offline:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Stop the scheduler first to prevent new tasks from being enqueued</span>
+docker<span class="w"> </span>compose<span class="w"> </span>stop<span class="w"> </span>sentari-beat
+
+<span class="c1"># 2. Stop the API to stop accepting new requests</span>
+docker<span class="w"> </span>compose<span class="w"> </span>stop<span class="w"> </span>sentari-api
+
+<span class="c1"># 3. Allow the worker to drain in-flight tasks (wait ~30 seconds), then stop it</span>
+docker<span class="w"> </span>compose<span class="w"> </span>stop<span class="w"> </span>sentari-worker
+
+<span class="c1"># 4. Stop Redis and the database last</span>
+docker<span class="w"> </span>compose<span class="w"> </span>stop<span class="w"> </span>redis<span class="w"> </span>db
+</code></pre></div>
+<h3 id="openshift_1">OpenShift<a class="headerlink" href="#openshift_1" title="Permanent link">&para;</a></h3>
+<p><strong>Scale a deployment to zero</strong> (takes it offline without deleting it):</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>scale<span class="w"> </span>deployment<span class="w"> </span>sentari-api<span class="w"> </span>--replicas<span class="o">=</span><span class="m">0</span>
+oc<span class="w"> </span>scale<span class="w"> </span>deployment<span class="w"> </span>sentari-worker<span class="w"> </span>--replicas<span class="o">=</span><span class="m">0</span>
+oc<span class="w"> </span>scale<span class="w"> </span>deployment<span class="w"> </span>sentari-beat<span class="w"> </span>--replicas<span class="o">=</span><span class="m">0</span>
+</code></pre></div>
+<p><strong>Bring it back:</strong></p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>scale<span class="w"> </span>deployment<span class="w"> </span>sentari-api<span class="w"> </span>--replicas<span class="o">=</span><span class="m">1</span>
+oc<span class="w"> </span>scale<span class="w"> </span>deployment<span class="w"> </span>sentari-worker<span class="w"> </span>--replicas<span class="o">=</span><span class="m">1</span>
+oc<span class="w"> </span>scale<span class="w"> </span>deployment<span class="w"> </span>sentari-beat<span class="w"> </span>--replicas<span class="o">=</span><span class="m">1</span>
+</code></pre></div>
+<p><strong>Trigger a rolling restart</strong> (pulls new configuration without downtime):</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>rollout<span class="w"> </span>restart<span class="w"> </span>deployment/sentari-api
+oc<span class="w"> </span>rollout<span class="w"> </span>restart<span class="w"> </span>deployment/sentari-worker
+oc<span class="w"> </span>rollout<span class="w"> </span>restart<span class="w"> </span>deployment/sentari-beat
+</code></pre></div>
+<p><strong>Watch the rollout status:</strong></p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>rollout<span class="w"> </span>status<span class="w"> </span>deployment/sentari-api
+</code></pre></div>
+<blockquote>
+<p><strong>Note on Beat replicas:</strong> The <code>sentari-beat</code> deployment is always set to exactly one replica. Do not scale it above 1. The Helm chart's <code>values.yaml</code> does not expose a replica count for Beat precisely for this reason. If Beat is running as multiple pods, duplicate scheduled tasks will fire, causing repeated CVE sync runs and spurious alert emails.</p>
+</blockquote>
+<hr />
+<h2 id="4-database-backup-and-restore">4. Database Backup and Restore<a class="headerlink" href="#4-database-backup-and-restore" title="Permanent link">&para;</a></h2>
+<p>Sentari uses TimescaleDB (PostgreSQL 16). Standard PostgreSQL tools work without modification.</p>
+<h3 id="backup-docker-compose">Backup — Docker Compose<a class="headerlink" href="#backup-docker-compose" title="Permanent link">&para;</a></h3>
+<p>Run <code>pg_dump</code> inside the database container and write the dump to the host:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sentari-db<span class="w"> </span>pg_dump<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-U<span class="w"> </span>sentari<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span>sentari<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-F<span class="w"> </span>custom<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-f<span class="w"> </span>/tmp/sentari-backup.dump
+
+docker<span class="w"> </span>cp<span class="w"> </span>sentari-db:/tmp/sentari-backup.dump<span class="w"> </span>./sentari-backup-<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d<span class="k">)</span>.dump
+</code></pre></div>
+<p>The <code>-F custom</code> flag produces a compressed binary dump. It is smaller than plain SQL and supports parallel restore with <code>pg_restore</code>.</p>
+<h3 id="backup-openshift">Backup — OpenShift<a class="headerlink" href="#backup-openshift" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nv">DB_POD</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>sentari-db<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span>
+
+oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DB_POD</span><span class="s2">&quot;</span><span class="w"> </span>--<span class="w"> </span>pg_dump<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-U<span class="w"> </span>sentari<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span>sentari<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-F<span class="w"> </span>custom<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-f<span class="w"> </span>/tmp/sentari-backup.dump
+
+oc<span class="w"> </span>cp<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DB_POD</span><span class="s2">&quot;</span>:/tmp/sentari-backup.dump<span class="w"> </span>./sentari-backup-<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d<span class="k">)</span>.dump
+</code></pre></div>
+<h3 id="restore-docker-compose">Restore — Docker Compose<a class="headerlink" href="#restore-docker-compose" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Stop <code>sentari-api</code>, <code>sentari-worker</code>, and <code>sentari-beat</code> before restoring to prevent writes during the operation.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="c1"># Copy the dump into the container</span>
+docker<span class="w"> </span>cp<span class="w"> </span>./sentari-backup-YYYYMMDD.dump<span class="w"> </span>sentari-db:/tmp/restore.dump
+
+<span class="c1"># Drop and recreate the database</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-e<span class="w"> </span><span class="nv">PGPASSWORD</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$POSTGRES_PASSWORD</span><span class="s2">&quot;</span><span class="w"> </span>sentari-db<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;DROP DATABASE IF EXISTS sentari;&quot;</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-e<span class="w"> </span><span class="nv">PGPASSWORD</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$POSTGRES_PASSWORD</span><span class="s2">&quot;</span><span class="w"> </span>sentari-db<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;CREATE DATABASE sentari;&quot;</span>
+
+<span class="c1"># Restore</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sentari-db<span class="w"> </span>pg_restore<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-U<span class="w"> </span>sentari<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span>sentari<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--no-privileges<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--no-owner<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>/tmp/restore.dump
+
+<span class="c1"># Restart all services</span>
+docker<span class="w"> </span>compose<span class="w"> </span>start<span class="w"> </span>sentari-api<span class="w"> </span>sentari-worker<span class="w"> </span>sentari-beat
+</code></pre></div>
+<h3 id="restore-openshift">Restore — OpenShift<a class="headerlink" href="#restore-openshift" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nv">DB_POD</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>sentari-db<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span>
+
+oc<span class="w"> </span>cp<span class="w"> </span>./sentari-backup-YYYYMMDD.dump<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DB_POD</span><span class="s2">&quot;</span>:/tmp/restore.dump
+
+oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DB_POD</span><span class="s2">&quot;</span><span class="w"> </span>--<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;DROP DATABASE IF EXISTS sentari;&quot;</span>
+oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DB_POD</span><span class="s2">&quot;</span><span class="w"> </span>--<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;CREATE DATABASE sentari;&quot;</span>
+oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DB_POD</span><span class="s2">&quot;</span><span class="w"> </span>--<span class="w"> </span>pg_restore<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-d<span class="w"> </span>sentari<span class="w"> </span>--no-privileges<span class="w"> </span>--no-owner<span class="w"> </span>/tmp/restore.dump
+</code></pre></div>
+<h3 id="recommended-backup-schedule">Recommended backup schedule<a class="headerlink" href="#recommended-backup-schedule" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Frequency</th>
+<th>Retention</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Daily</td>
+<td>7 days</td>
+<td>Minimum for compliance environments</td>
+</tr>
+<tr>
+<td>Weekly</td>
+<td>4 weeks</td>
+<td>Before any upgrade</td>
+</tr>
+<tr>
+<td>Pre-upgrade</td>
+<td>Keep until next upgrade</td>
+<td>Taken manually before every Sentari update</td>
+</tr>
+</tbody>
+</table>
+<p>Store backups outside the Sentari server — on a network share, object storage, or tape — to protect against host failure.</p>
+<hr />
+<h2 id="5-secret-rotation">5. Secret Rotation<a class="headerlink" href="#5-secret-rotation" title="Permanent link">&para;</a></h2>
+<p>Rotating secrets requires restarting the affected services. Plan a brief maintenance window.</p>
+<h3 id="jwt-secret-key-sentari_secret_key">JWT secret key (<code>SENTARI_SECRET_KEY</code>)<a class="headerlink" href="#jwt-secret-key-sentari_secret_key" title="Permanent link">&para;</a></h3>
+<p>The JWT secret key signs all user session tokens. Rotating it immediately invalidates all active sessions — all logged-in users will be signed out.</p>
+<blockquote>
+<p><strong>Before rotating: this key may also protect the internal CA.</strong>
+Unless <code>SENTARI_CA_PASSPHRASE_KEY</code> is set, the server falls back to
+<code>SENTARI_SECRET_KEY</code> as the passphrase that encrypts the internal CA's
+private key on disk. Rotating <code>SENTARI_SECRET_KEY</code> without handling the CA
+key first makes the CA key unreadable at the next startup — agent
+certificate issuance fails and <code>/api/v1/agent/register</code> returns 503.</p>
+<p>Choose one of:</p>
+<ul>
+<li><strong>Recommended (one-time setup):</strong> set a dedicated
+  <code>SENTARI_CA_PASSPHRASE_KEY</code> and re-encrypt the CA key under it <em>before</em>
+  the rotation (see "CA key passphrase" below). After that,
+  <code>SENTARI_SECRET_KEY</code> rotations never touch the CA.</li>
+<li><strong>Otherwise:</strong> in the same maintenance window, re-encrypt the CA private
+  key from the old value to the new one before restarting:
+  <div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>pkey<span class="w"> </span>-in<span class="w"> </span>ca/ca.key<span class="w"> </span>-passin<span class="w"> </span>pass:&lt;old<span class="w"> </span>SENTARI_SECRET_KEY&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-aes256<span class="w"> </span>-passout<span class="w"> </span>pass:&lt;new<span class="w"> </span>SENTARI_SECRET_KEY&gt;<span class="w"> </span>-out<span class="w"> </span>ca/ca.key.new<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="o">&amp;&amp;</span><span class="w"> </span>mv<span class="w"> </span>ca/ca.key.new<span class="w"> </span>ca/ca.key<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>ca/ca.key
+</code></pre></div></li>
+</ul>
+</blockquote>
+<p><strong>Docker Compose:</strong></p>
+<ol>
+<li>Generate a new key: <code>python3 -c "import secrets; print(secrets.token_hex(32))"</code></li>
+<li>Update <code>SENTARI_SECRET_KEY</code> in <code>deploy/.env</code></li>
+<li>Restart all three application services:
+   <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>restart<span class="w"> </span>sentari-api<span class="w"> </span>sentari-worker<span class="w"> </span>sentari-beat
+</code></pre></div></li>
+</ol>
+<p><strong>OpenShift:</strong></p>
+<ol>
+<li>Update the Kubernetes Secret (or the value in <code>values.yaml</code> and re-run <code>helm upgrade</code>)</li>
+<li>Trigger a rolling restart:
+   <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>rollout<span class="w"> </span>restart<span class="w"> </span>deployment/sentari-api<span class="w"> </span>deployment/sentari-worker<span class="w"> </span>deployment/sentari-beat
+</code></pre></div></li>
+</ol>
+<p>Inform users in advance that they will be signed out.</p>
+<h3 id="ca-key-passphrase-sentari_ca_passphrase_key">CA key passphrase (<code>SENTARI_CA_PASSPHRASE_KEY</code>)<a class="headerlink" href="#ca-key-passphrase-sentari_ca_passphrase_key" title="Permanent link">&para;</a></h3>
+<p>The internal CA's private key (<code>ca/ca.key</code>) is encrypted at rest with a
+passphrase. By default that passphrase <strong>falls back to <code>SENTARI_SECRET_KEY</code></strong>;
+setting a dedicated <code>SENTARI_CA_PASSPHRASE_KEY</code> isolates the CA from JWT-key
+rotations and limits the blast radius if one secret leaks.</p>
+<p>To adopt a dedicated CA passphrase on an existing deployment:</p>
+<ol>
+<li>Generate a key: <code>python3 -c "import secrets; print(secrets.token_hex(32))"</code></li>
+<li>Re-encrypt the CA key from the current passphrase (the active
+   <code>SENTARI_SECRET_KEY</code>, unless a dedicated key was already set) to the new one:
+   <div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>pkey<span class="w"> </span>-in<span class="w"> </span>ca/ca.key<span class="w"> </span>-passin<span class="w"> </span>pass:&lt;current<span class="w"> </span>passphrase&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-aes256<span class="w"> </span>-passout<span class="w"> </span>pass:&lt;new<span class="w"> </span>SENTARI_CA_PASSPHRASE_KEY&gt;<span class="w"> </span>-out<span class="w"> </span>ca/ca.key.new<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="o">&amp;&amp;</span><span class="w"> </span>mv<span class="w"> </span>ca/ca.key.new<span class="w"> </span>ca/ca.key<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>ca/ca.key
+</code></pre></div></li>
+<li>Set <code>SENTARI_CA_PASSPHRASE_KEY</code> in <code>deploy/.env</code> (or the Kubernetes
+   Secret) and restart <code>sentari-api</code>.</li>
+</ol>
+<p>Rotating <code>SENTARI_CA_PASSPHRASE_KEY</code> later follows the same re-encrypt-then-
+restart procedure. Take a backup of <code>ca/ca.key</code> before any re-encryption —
+agents pin this CA, and a lost CA key means re-enrolling the entire fleet.</p>
+<h3 id="database-password-postgres_password">Database password (<code>POSTGRES_PASSWORD</code>)<a class="headerlink" href="#database-password-postgres_password" title="Permanent link">&para;</a></h3>
+<p>Changing the database password is a two-step operation: update the password in PostgreSQL, then update the application configuration.</p>
+<p><strong>Docker Compose:</strong></p>
+<ol>
+<li>Change the password inside PostgreSQL:
+   <div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>sentari-db<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;ALTER USER sentari PASSWORD &#39;new-strong-password&#39;;&quot;</span>
+</code></pre></div></li>
+<li>Update <code>POSTGRES_PASSWORD</code> in <code>deploy/.env</code></li>
+<li>Restart all services that connect to the database:
+   <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>restart<span class="w"> </span>sentari-api<span class="w"> </span>sentari-worker<span class="w"> </span>sentari-beat
+</code></pre></div></li>
+</ol>
+<p><strong>OpenShift:</strong> Update the Kubernetes Secret or Helm values, then run <code>helm upgrade</code> and restart the deployments.</p>
+<h3 id="agent-enrollment-token-sentari_enrollment_token">Agent enrollment token (<code>SENTARI_ENROLLMENT_TOKEN</code>)<a class="headerlink" href="#agent-enrollment-token-sentari_enrollment_token" title="Permanent link">&para;</a></h3>
+<p>The enrollment token is checked only when an agent registers for the first time. Existing enrolled agents are <strong>not affected</strong> — they authenticate via their mTLS client certificates, which are issued at registration time.</p>
+<p><strong>Docker Compose:</strong></p>
+<ol>
+<li>Update <code>SENTARI_ENROLLMENT_TOKEN</code> in <code>deploy/.env</code></li>
+<li>Restart only the API:
+   <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>restart<span class="w"> </span>sentari-api
+</code></pre></div></li>
+<li>Distribute the new token to any devices that have not yet enrolled.</li>
+</ol>
+<p>Rotate the enrollment token after the initial rollout to prevent unauthorised devices from registering.</p>
+<h3 id="redis-password-redis_password">Redis password (<code>REDIS_PASSWORD</code>)<a class="headerlink" href="#redis-password-redis_password" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Update the password in Redis:
+   <div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>sentari-redis<span class="w"> </span>redis-cli<span class="w"> </span>CONFIG<span class="w"> </span>SET<span class="w"> </span>requirepass<span class="w"> </span><span class="s2">&quot;new-redis-password&quot;</span>
+</code></pre></div></li>
+<li>Update <code>REDIS_PASSWORD</code> in <code>deploy/.env</code></li>
+<li>Restart all services that connect to Redis:
+   <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>restart<span class="w"> </span>sentari-api<span class="w"> </span>sentari-worker<span class="w"> </span>sentari-beat<span class="w"> </span>redis
+</code></pre></div></li>
+</ol>
+<blockquote>
+<p><strong>Note:</strong> The <code>redis-cli CONFIG SET</code> change takes effect immediately but is lost on container restart unless Redis is also restarted with the new password in its startup command. The compose file passes the password via the <code>--requirepass</code> flag, so updating <code>.env</code> and restarting Redis is the correct sequence.</p>
+</blockquote>
+<hr />
+<h2 id="6-user-management">6. User Management<a class="headerlink" href="#6-user-management" title="Permanent link">&para;</a></h2>
+<h3 id="bootstrap-admin-first-startup">Bootstrap admin (first startup)<a class="headerlink" href="#bootstrap-admin-first-startup" title="Permanent link">&para;</a></h3>
+<p>On first startup, Sentari creates an initial <strong>owner</strong> account if <code>SENTARI_BOOTSTRAP_ADMIN_EMAIL</code> and <code>SENTARI_BOOTSTRAP_ADMIN_PASSWORD</code> are set and no users exist in the database. This account has full administrative access.</p>
+<p>The bootstrap process runs once. If users already exist, the bootstrap step is skipped silently. You can safely leave these variables set in production — they have no effect after the first startup.</p>
+<p>Bootstrap admin password requirements: minimum 10 characters, at least one uppercase letter, one lowercase letter, one digit, and one special character.</p>
+<h3 id="create-additional-users-dashboard">Create additional users (dashboard)<a class="headerlink" href="#create-additional-users-dashboard" title="Permanent link">&para;</a></h3>
+<p>Log in to the dashboard at <code>https://&lt;server-hostname&gt;</code> with the bootstrap admin credentials. Navigate to <strong>Settings → Users</strong> to create new accounts.</p>
+<p>Available roles:</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Access level</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>viewer</code></td>
+<td>Read-only access to inventory, CVE, and compliance data</td>
+</tr>
+<tr>
+<td><code>analyst</code></td>
+<td>Viewer access plus audit log and compliance report access, alert acknowledgement, and CVE suppression</td>
+</tr>
+<tr>
+<td><code>admin</code></td>
+<td>Full access including policy management and user management</td>
+</tr>
+<tr>
+<td><code>owner</code></td>
+<td>Full access including bootstrap operations (one per deployment)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ldap-active-directory-integration">LDAP / Active Directory integration<a class="headerlink" href="#ldap-active-directory-integration" title="Permanent link">&para;</a></h3>
+<p>Set the following variables in <code>deploy/.env</code> (Docker Compose) or Helm values (OpenShift):</p>
+<div class="highlight"><pre><span></span><code><span class="nv">SENTARI_LDAP_URL</span><span class="o">=</span>ldap://ad.example.com:389
+<span class="nv">SENTARI_LDAP_BASE_DN</span><span class="o">=</span><span class="nv">DC</span><span class="o">=</span>example,DC<span class="o">=</span>com
+<span class="nv">SENTARI_LDAP_BIND_DN</span><span class="o">=</span><span class="nv">CN</span><span class="o">=</span>sentari-svc,OU<span class="o">=</span>ServiceAccounts,DC<span class="o">=</span>example,DC<span class="o">=</span>com
+<span class="nv">SENTARI_LDAP_BIND_PASSWORD</span><span class="o">=</span>&lt;service-account-password&gt;
+</code></pre></div>
+<p>After restarting <code>sentari-api</code>, create users in the dashboard with <strong>Identity Provider</strong> set to <code>ldap</code>. When those users log in, Sentari authenticates their password against the LDAP server using the service account to locate their entry, then re-authenticates with their own credentials.</p>
+<p>If <code>SENTARI_LDAP_URL</code> is not set, the LDAP option returns HTTP 501. If the LDAP server is unreachable at login time, the response is HTTP 503 with an error message.</p>
+<h3 id="oidc-sso-integration">OIDC / SSO integration<a class="headerlink" href="#oidc-sso-integration" title="Permanent link">&para;</a></h3>
+<p>Sentari supports any OIDC-compliant identity provider: Microsoft Entra ID (Azure AD), Keycloak, Ping Identity, Okta, and others.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">SENTARI_OIDC_ISSUER_URL</span><span class="o">=</span>https://login.microsoftonline.com/&lt;tenant-id&gt;/v2.0
+<span class="nv">SENTARI_OIDC_CLIENT_ID</span><span class="o">=</span>&lt;application-client-id&gt;
+<span class="nv">SENTARI_OIDC_CLIENT_SECRET</span><span class="o">=</span>&lt;client-secret&gt;
+<span class="nv">SENTARI_OIDC_SCOPES</span><span class="o">=</span>openid<span class="w"> </span>email<span class="w"> </span>profile
+<span class="nv">SENTARI_OIDC_AUTO_CREATE_USERS</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">SENTARI_OIDC_DEFAULT_ROLE</span><span class="o">=</span>viewer
+<span class="c1"># Optional: map an IdP claim to a Sentari role</span>
+<span class="nv">SENTARI_OIDC_ROLE_CLAIM</span><span class="o">=</span>roles
+</code></pre></div>
+<p>When <code>SENTARI_OIDC_AUTO_CREATE_USERS=true</code>, a Sentari account is created automatically on the user's first SSO login, assigned the role in <code>SENTARI_OIDC_DEFAULT_ROLE</code>. If <code>SENTARI_OIDC_ROLE_CLAIM</code> is set, the role is read from that claim in the ID token.</p>
+<h3 id="multi-factor-authentication-mfa-totp">Multi-factor authentication (MFA / TOTP)<a class="headerlink" href="#multi-factor-authentication-mfa-totp" title="Permanent link">&para;</a></h3>
+<p>MFA is configured per user. After logging in, a user navigates to <strong>Profile → Enable MFA</strong> and scans the displayed QR code with an authenticator application (Microsoft Authenticator, Google Authenticator, or any TOTP-compatible app). Once verified, MFA is required at every subsequent login.</p>
+<p>Administrators cannot enforce MFA globally via the current UI. To require MFA for a specific role, coordinate with users directly or set it as an onboarding requirement for your organisation.</p>
+<hr />
+<h2 id="7-agent-management">7. Agent Management<a class="headerlink" href="#7-agent-management" title="Permanent link">&para;</a></h2>
+<h3 id="monitor-enrolled-devices">Monitor enrolled devices<a class="headerlink" href="#monitor-enrolled-devices" title="Permanent link">&para;</a></h3>
+<p>The <strong>Dashboard → Devices</strong> page lists all enrolled devices with their last seen timestamp, OS, and scan status. A device with a <code>last_seen</code> value older than your configured scan interval (default: 24 hours) indicates a connectivity or agent problem.</p>
+<h3 id="agent-configuration">Agent configuration<a class="headerlink" href="#agent-configuration" title="Permanent link">&para;</a></h3>
+<p>The agent is configured via an INI-style file (<code>agent.conf</code>) on each endpoint. The key fields for connectivity:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[server]</span>
+<span class="na">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">https://&lt;sentari-server-hostname&gt;:8000</span>
+<span class="na">poll_interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">900</span><span class="w">    </span><span class="c1">; seconds between policy/config polls</span>
+
+<span class="k">[scanner]</span>
+<span class="na">interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">3600</span><span class="w">        </span><span class="c1">; seconds between scans</span>
+</code></pre></div>
+<p>The agent's mTLS device certificate is obtained automatically during
+enrollment and stored under the agent data directory
+(<code>/var/lib/sentari/certs</code> on Linux/macOS, <code>C:\ProgramData\Sentari\certs</code> on
+Windows) — there are no certificate paths to set by hand. The enrollment
+token is supplied <strong>once</strong> via the <code>--enroll-token</code> CLI flag on first run
+(see <a href="../agent/install/">Agent install</a>), not through <code>agent.conf</code>.</p>
+<h3 id="rotate-the-enrollment-token">Rotate the enrollment token<a class="headerlink" href="#rotate-the-enrollment-token" title="Permanent link">&para;</a></h3>
+<p>See <a href="#agent-enrollment-token-sentari_enrollment_token">Section 5 — Agent enrollment token</a>. Existing agents are not affected.</p>
+<h3 id="check-agent-connectivity">Check agent connectivity<a class="headerlink" href="#check-agent-connectivity" title="Permanent link">&para;</a></h3>
+<p>From the dashboard, go to <strong>Devices</strong> and sort by <strong>Last Seen</strong>. Devices that have not checked in recently appear at the top when sorted ascending.</p>
+<p>To investigate a specific device, check the agent log on that endpoint:</p>
+<p><strong>Linux:</strong>
+<div class="highlight"><pre><span></span><code>journalctl<span class="w"> </span>-u<span class="w"> </span>sentari-agent<span class="w"> </span>-n<span class="w"> </span><span class="m">100</span>
+</code></pre></div></p>
+<p><strong>Windows:</strong>
+<div class="highlight"><pre><span></span><code>Get-EventLog -LogName Application -Source sentari-agent -Newest 50
+</code></pre></div></p>
+<p>Common connectivity issues:
+- Firewall blocking outbound HTTPS (port 443 or 8000) from the endpoint to the server
+- Expired or revoked agent certificate (re-enrol the device)
+- Server hostname not resolvable from the endpoint</p>
+<h3 id="re-enrol-a-device">Re-enrol a device<a class="headerlink" href="#re-enrol-a-device" title="Permanent link">&para;</a></h3>
+<p>If an agent's certificate has expired or been lost, delete the device record from <strong>Dashboard → Devices</strong>, then re-run the enrollment command on the endpoint with a valid enrollment token. A new certificate will be issued.</p>
+<h3 id="enabling-container-image-scanning-agent-side-only">Enabling container-image scanning (agent-side only)<a class="headerlink" href="#enabling-container-image-scanning-agent-side-only" title="Permanent link">&para;</a></h3>
+<p>Agents can extend their inventory to include every Docker, Podman, and CRI-O container present on the endpoint. Each image's merged rootfs is walked through the same Python + JVM + system-package plugins that scan the host.</p>
+<blockquote>
+<p><strong>Not yet available end-to-end.</strong> The agent emits container signals today, but <strong>server-side persistence has not shipped</strong>: there are no container columns on the <code>packages</code> table, no container-origin attribution, and no dashboard filters. Enabling container scanning will increase scan upload size, but the Inventory/CVE pages do not split container-origin records out and the container fields are not stored server-side.</p>
+</blockquote>
+<p><strong>Container scanning is OFF BY DEFAULT.</strong> Enable it only if you have a specific reason to exercise the agent path.</p>
+<p><strong>Enable via config file:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">[scanner]</span>
+<span class="na">containers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">true</span>
+</code></pre></div>
+<p><strong>Or via environment variable (one-host trials):</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nv">SENTARI_SCAN_CONTAINERS</span><span class="o">=</span><span class="nb">true</span><span class="w"> </span>sentari-agent<span class="w"> </span>--scan
+</code></pre></div>
+<p><strong>Tuning knobs:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MaxContainersPerCycle</code></td>
+<td>100</td>
+<td>Hard cap on how many targets (images + containers) the agent sub-scans per scan cycle.</td>
+</tr>
+<tr>
+<td><code>PerContainerTimeout</code></td>
+<td>60s</td>
+<td>Per-target timeout. Exceeded targets surface a <code>ScanError</code>, the loop continues with the next target.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Supported runtimes:</strong> Docker (<code>/var/lib/docker</code>), Podman — both rootful and rootless, CRI-O.</p>
+<p><strong>Rollback.</strong> Flip <code>containers = false</code> in config and restart the agent. No schema or state cleanup required.</p>
+<hr />
+<h2 id="8-dashboard-navigation">8. Dashboard Navigation<a class="headerlink" href="#8-dashboard-navigation" title="Permanent link">&para;</a></h2>
+<p>The dashboard is organised into three top-level sections in the sidebar: <strong>Fleet</strong>, <strong>Security</strong>, and <strong>Compliance</strong>. This section describes the Fleet area in detail, as it is the primary operational view for administrators managing enrolled devices.</p>
+<h3 id="fleet-section">Fleet section<a class="headerlink" href="#fleet-section" title="Permanent link">&para;</a></h3>
+<p>The Fleet section contains six tabs:</p>
+<table>
+<thead>
+<tr>
+<th>Tab</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Overview</strong></td>
+<td>Landing page. At-a-glance stats: total devices, active devices, packages inventoried, open CVE count, and recent alert summary. Start here during incident triage.</td>
+</tr>
+<tr>
+<td><strong>Devices</strong></td>
+<td>Paginated list of all enrolled devices. Columns include hostname, OS, Python version, last seen timestamp, and scan status. Click a device to view its full detail page including installed packages and CVE findings.</td>
+</tr>
+<tr>
+<td><strong>Packages</strong></td>
+<td>Fleet-wide package inventory. Search and filter across all packages on all devices. Use this view to answer "which devices have package X installed?" or to assess exposure for a newly disclosed CVE before correlation runs.</td>
+</tr>
+<tr>
+<td><strong>Runtime</strong></td>
+<td>Runtime version distribution across the fleet, covering Python, Node.js, and JDK. Shows a version breakdown chart and a trend view over time. Includes EOL (end-of-life) tracking — runtime versions past their upstream support date are flagged against <code>endoflife.date</code>. Supports Excel and CSV export of the full runtime inventory.</td>
+</tr>
+<tr>
+<td><strong>Scan History</strong></td>
+<td>Timeline of scan events per device. Use this to confirm that devices are scanning on schedule and to identify devices that have missed their expected scan window.</td>
+</tr>
+<tr>
+<td><strong>Diagnostics</strong></td>
+<td>Scan error analysis. Lists devices reporting scan errors, error types, and frequency. Use this tab first when investigating why package data appears stale or incomplete for a specific device.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="runtime-version-tracking-and-export">Runtime version tracking and export<a class="headerlink" href="#runtime-version-tracking-and-export" title="Permanent link">&para;</a></h3>
+<p>The <strong>Runtime</strong> tab tracks Python, Node.js, and JDK versions across the fleet. This is relevant for NIS2 and DORA compliance: running a runtime version that has reached end-of-life means security patches are no longer issued by the upstream maintainer.</p>
+<p>To export the runtime inventory:</p>
+<ol>
+<li>Navigate to <strong>Fleet → Runtime</strong></li>
+<li>Click <strong>Export</strong> in the top-right corner of the page</li>
+<li>Select <strong>Excel</strong> (<code>.xlsx</code>) or <strong>CSV</strong> depending on your reporting requirements</li>
+</ol>
+<p>The export includes: device hostname, OS, runtime kind (Python / Node / JDK), interpreter or install path, version, EOL date (where applicable), and the date of the most recent scan.</p>
+<h3 id="navigation-reference">Navigation reference<a class="headerlink" href="#navigation-reference" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Page</th>
+<th>Minimum role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fleet</td>
+<td>Overview</td>
+<td>viewer</td>
+</tr>
+<tr>
+<td>Fleet</td>
+<td>Devices</td>
+<td>viewer</td>
+</tr>
+<tr>
+<td>Fleet</td>
+<td>Packages</td>
+<td>viewer</td>
+</tr>
+<tr>
+<td>Fleet</td>
+<td>Runtime</td>
+<td>viewer</td>
+</tr>
+<tr>
+<td>Fleet</td>
+<td>Scan History</td>
+<td>viewer</td>
+</tr>
+<tr>
+<td>Fleet</td>
+<td>Diagnostics</td>
+<td>analyst</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>CVE</td>
+<td>viewer</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>Alerts</td>
+<td>viewer</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>Policy</td>
+<td>admin</td>
+</tr>
+<tr>
+<td>Compliance</td>
+<td>NIS2 / DORA dashboards</td>
+<td>analyst</td>
+</tr>
+<tr>
+<td>Admin</td>
+<td>Settings</td>
+<td>admin</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9-cve-feed-configuration">9. CVE Feed Configuration<a class="headerlink" href="#9-cve-feed-configuration" title="Permanent link">&para;</a></h2>
+<h3 id="online-mode-default">Online mode (default)<a class="headerlink" href="#online-mode-default" title="Permanent link">&para;</a></h3>
+<p>In online mode, Sentari syncs CVE feeds into a local, ecosystem-keyed cache automatically. A daily background task (<code>cve-feed-sync</code>) runs at 02:00 UTC, scheduled by <code>sentari-beat</code> and executed by <code>sentari-worker</code>. Per-scan CVE correlation runs in the worker immediately after each agent scan upload and matches against the local cache offline — it does not query OSV live per request.</p>
+<p>No configuration is required beyond network access from <code>sentari-worker</code> to <code>https://api.osv.dev</code> for the daily feed sync.</p>
+<p>To also query the NVD (NIST National Vulnerability Database), set an NVD API key in the dashboard under <strong>Settings → CVE → NVD API Key</strong>. Without a key, NVD queries are rate-limited to a low threshold that may cause failures at scale.</p>
+<h3 id="manual-sync-trigger">Manual sync trigger<a class="headerlink" href="#manual-sync-trigger" title="Permanent link">&para;</a></h3>
+<p>To run a CVE sync immediately without waiting for the scheduled task:</p>
+<ol>
+<li>Log in to the dashboard as an admin</li>
+<li>Navigate to <strong>Settings → CVE</strong></li>
+<li>Click <strong>Trigger Sync</strong></li>
+</ol>
+<p>The sync runs asynchronously. Check <strong>Dashboard → CVE</strong> for updated correlation results within a few minutes.</p>
+<h3 id="offline-air-gap-mode">Offline / air-gap mode<a class="headerlink" href="#offline-air-gap-mode" title="Permanent link">&para;</a></h3>
+<p>For deployments with no internet access, download an OSV bundle on a connected machine and transfer it to the server.</p>
+<p><strong>Download the bundle</strong> (on a connected machine):</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-L<span class="w"> </span>https://osv-vulnerabilities.storage.googleapis.com/PyPI/all.zip<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>osv-pypi-bundle.zip
+</code></pre></div>
+<p><strong>Transfer</strong> the bundle to the Sentari server via your approved secure transfer method.</p>
+<p><strong>Configure the bundle path</strong> in the dashboard:</p>
+<ol>
+<li>Navigate to <strong>Settings → CVE → OSV Bundle Path</strong></li>
+<li>Enter the full path to the extracted bundle file (accessible from the <code>sentari-worker</code> container)</li>
+<li>Click <strong>Save</strong></li>
+<li>Click <strong>Trigger Sync</strong></li>
+</ol>
+<p>For Docker Compose deployments, mount the bundle into the worker container by adding a bind mount to <code>docker-compose.yml</code> (or an override file):</p>
+<div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">sentari-worker</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/data/sentari/osv-bundle:/opt/sentari/osv-bundle:ro</span>
+</code></pre></div>
+<p>Then set the bundle path in Settings to <code>/opt/sentari/osv-bundle/osv-pypi-bundle.ndjson</code>.</p>
+<h3 id="runtime-eol-feed-air-gap">Runtime-EOL feed (air-gap)<a class="headerlink" href="#runtime-eol-feed-air-gap" title="Permanent link">&para;</a></h3>
+<p>The daily runtime-EOL sync (<code>sync_runtime_eol_feeds</code>, 03:00 UTC) normally
+fetches end-of-life data from <code>endoflife.date</code>. For air-gapped deployments,
+supply a pre-fetched NDJSON bundle instead and the sync reads it locally
+rather than reaching the network.</p>
+<ol>
+<li>On an internet-connected host, fetch the <code>endoflife.date</code> cycle data for the
+   runtimes you track (python, node, jdk) and assemble it into the NDJSON
+   bundle format the worker expects.</li>
+<li><strong>Transfer</strong> the bundle to the Sentari server via your approved secure
+   transfer method and make it readable from the <code>sentari-worker</code> container
+   (bind-mount it the same way as the OSV bundle above).</li>
+<li>Set the <code>runtime_eol.bundle_path</code> key in <code>system_config</code> to the full
+   in-container path of the bundle (via the dashboard Settings or the config
+   API). When set, the sync loads the bundle on each run; when empty, it falls
+   back to the online <code>endoflife.date</code> fetch.</li>
+</ol>
+<hr />
+<h2 id="10-alert-configuration">10. Alert Configuration<a class="headerlink" href="#10-alert-configuration" title="Permanent link">&para;</a></h2>
+<p>Sentari generates alerts for CVE findings (critical/high severity) and policy violations. Alerts appear in the dashboard under <strong>Alerts</strong>. You can also route them to email and SIEM systems.</p>
+<h3 id="email-alerts">Email alerts<a class="headerlink" href="#email-alerts" title="Permanent link">&para;</a></h3>
+<p>Configure SMTP in the dashboard under <strong>Settings → SMTP</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SMTP Host</td>
+<td>Mail server hostname (e.g. <code>smtp.yourorganisation.be</code>)</td>
+</tr>
+<tr>
+<td>SMTP Port</td>
+<td>Typically 587 (STARTTLS) or 465 (TLS)</td>
+</tr>
+<tr>
+<td>From address</td>
+<td>Sender address (e.g. <code>sentari-alerts@yourorganisation.be</code>)</td>
+</tr>
+<tr>
+<td>To address</td>
+<td>Recipient — a shared mailbox or distribution list is recommended</td>
+</tr>
+<tr>
+<td>Username</td>
+<td>SMTP authentication username</td>
+</tr>
+<tr>
+<td>Password</td>
+<td>SMTP authentication password</td>
+</tr>
+<tr>
+<td>Use TLS</td>
+<td>Enable for STARTTLS (port 587)</td>
+</tr>
+</tbody>
+</table>
+<p>Email alerts are sent by <code>sentari-worker</code> via Celery tasks with three automatic retries on failure.</p>
+<h3 id="siem-webhook">SIEM webhook<a class="headerlink" href="#siem-webhook" title="Permanent link">&para;</a></h3>
+<p>Configure a webhook URL in the dashboard under <strong>Settings → SIEM Webhook URL</strong>. Sentari sends a JSON POST request to this URL for each alert. This is compatible with Splunk HTTP Event Collector, Elastic SIEM, Microsoft Sentinel, and similar systems.</p>
+<h3 id="test-the-alert-pipeline">Test the alert pipeline<a class="headerlink" href="#test-the-alert-pipeline" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Navigate to <strong>Policy → New Rule</strong></li>
+<li>Create a rule that bans a package name that you know is installed on at least one device (for example, a test package)</li>
+<li>Click <strong>Evaluate Fleet</strong></li>
+<li>A policy alert should appear in <strong>Alerts</strong> within seconds</li>
+<li>If email and SIEM are configured, check that the notification was received</li>
+</ol>
+<p>If no alert appears, check <code>sentari-worker</code> logs for task errors:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">100</span><span class="w"> </span>sentari-worker
+</code></pre></div>
+<hr />
+<h2 id="11-proxy-configuration">11. Proxy Configuration<a class="headerlink" href="#11-proxy-configuration" title="Permanent link">&para;</a></h2>
+<p>In environments where all internet-bound traffic must pass through a forward proxy, configure the proxy in two places: at the system level (for tools inside containers) and at the application level (for Sentari's own HTTP client).</p>
+<h3 id="docker-compose_2">Docker Compose<a class="headerlink" href="#docker-compose_2" title="Permanent link">&para;</a></h3>
+<p>In <code>deploy/.env</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># System-level proxy (used by tools inside containers: curl, pip, etc.)</span>
+<span class="nv">HTTP_PROXY</span><span class="o">=</span>http://proxy.yourorganisation.be:3128
+<span class="nv">HTTPS_PROXY</span><span class="o">=</span>http://proxy.yourorganisation.be:3128
+<span class="nv">NO_PROXY</span><span class="o">=</span>sentari-db,sentari-redis,localhost,127.0.0.1
+
+<span class="c1"># Application-level proxy (used by Sentari for CVE feeds, SIEM webhooks)</span>
+<span class="nv">SENTARI_HTTP_PROXY</span><span class="o">=</span>http://proxy.yourorganisation.be:3128
+<span class="nv">SENTARI_HTTPS_PROXY</span><span class="o">=</span>http://proxy.yourorganisation.be:3128
+<span class="nv">SENTARI_NO_PROXY</span><span class="o">=</span>localhost,127.0.0.1
+</code></pre></div>
+<p>If your proxy requires authentication:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">SENTARI_HTTPS_PROXY</span><span class="o">=</span>http://username:password@proxy.yourorganisation.be:3128
+</code></pre></div>
+<p>Restart all application services after making changes.</p>
+<h3 id="openshift-helm">OpenShift (Helm)<a class="headerlink" href="#openshift-helm" title="Permanent link">&para;</a></h3>
+<p>In <code>values.yaml</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">proxy</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">httpProxy</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://proxy.yourorganisation.be:3128&quot;</span>
+<span class="w">  </span><span class="nt">httpsProxy</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://proxy.yourorganisation.be:3128&quot;</span>
+<span class="w">  </span><span class="nt">noProxy</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;localhost,127.0.0.1,.cluster.local&quot;</span>
+</code></pre></div>
+<p>Run <code>helm upgrade</code> to apply. The chart automatically appends internal Kubernetes service names to <code>noProxy</code> to prevent internal traffic from being routed through the proxy.</p>
+<h3 id="agent-proxy">Agent proxy<a class="headerlink" href="#agent-proxy" title="Permanent link">&para;</a></h3>
+<p>Configure the proxy in <code>agent.conf</code> on each endpoint:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[proxy]</span>
+<span class="na">https_proxy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">http://proxy.yourorganisation.be:3128</span>
+<span class="na">no_proxy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">localhost,127.0.0.1</span>
+</code></pre></div>
+<h3 id="verify-proxy-connectivity">Verify proxy connectivity<a class="headerlink" href="#verify-proxy-connectivity" title="Permanent link">&para;</a></h3>
+<p>After configuration, trigger a CVE sync from <strong>Settings → CVE → Trigger Sync</strong> and monitor <code>sentari-worker</code> logs for connection errors:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>sentari-worker<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;proxy\|connect\|error&quot;</span>
+</code></pre></div>
+<p>A successful sync produces a log line similar to:</p>
+<div class="highlight"><pre><span></span><code>CVE feed sync completed: N packages correlated
+</code></pre></div>
+<hr />
+<h2 id="12-log-management">12. Log Management<a class="headerlink" href="#12-log-management" title="Permanent link">&para;</a></h2>
+<h3 id="docker-compose_3">Docker Compose<a class="headerlink" href="#docker-compose_3" title="Permanent link">&para;</a></h3>
+<p>View live logs for a service:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>sentari-api
+docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>sentari-worker
+docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>sentari-beat
+</code></pre></div>
+<p>View the last N lines without following:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">200</span><span class="w"> </span>sentari-api
+</code></pre></div>
+<p>Logs from all services at once:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">50</span>
+</code></pre></div>
+<h3 id="openshift_2">OpenShift<a class="headerlink" href="#openshift_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Get the pod name first</span>
+oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>sentari-api
+
+<span class="c1"># Follow logs</span>
+oc<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>&lt;pod-name&gt;
+
+<span class="c1"># Previous pod (if it has restarted)</span>
+oc<span class="w"> </span>logs<span class="w"> </span>--previous<span class="w"> </span>&lt;pod-name&gt;
+</code></pre></div>
+<h3 id="log-level">Log level<a class="headerlink" href="#log-level" title="Permanent link">&para;</a></h3>
+<p>The default log level is <code>info</code>. To increase verbosity for troubleshooting, set <code>SENTARI_LOG_LEVEL=debug</code> in the environment and restart the API container. This enables <code>debug</code>-level logging across the application without affecting security controls.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Docker Compose</span>
+docker<span class="w"> </span>compose<span class="w"> </span>down<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nv">SENTARI_LOG_LEVEL</span><span class="o">=</span>debug<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
+
+<span class="c1"># Check logs</span>
+docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>sentari-api
+</code></pre></div>
+<blockquote>
+<p><strong>Note:</strong> Use <code>SENTARI_LOG_LEVEL=debug</code> for verbose troubleshooting logs. This only changes log verbosity — it does not disable any security controls.</p>
+</blockquote>
+<h3 id="what-to-look-for">What to look for<a class="headerlink" href="#what-to-look-for" title="Permanent link">&para;</a></h3>
+<p><strong>On startup:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Log message</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Bootstrap owner created: &lt;email&gt;</code></td>
+<td>First admin account created successfully</td>
+</tr>
+<tr>
+<td><code>CA initialisation failed</code></td>
+<td>Internal CA could not load or generate. Agent registration will fail.</td>
+</tr>
+<tr>
+<td><code>FATAL: SENTARI_SECRET_KEY is set to the insecure default</code></td>
+<td><code>SENTARI_SECRET_KEY</code> was not set. The server will refuse to start in production mode.</td>
+</tr>
+<tr>
+<td><code>Startup license validation completed</code></td>
+<td>License verified successfully against the license server</td>
+</tr>
+</tbody>
+</table>
+<p><strong>During operation:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Log message</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CVE feed sync completed</code></td>
+<td>Daily CVE sync ran successfully</td>
+</tr>
+<tr>
+<td><code>Health check: database unreachable</code></td>
+<td>API cannot reach TimescaleDB — check container status and network</td>
+</tr>
+<tr>
+<td><code>Health check: Redis unreachable</code></td>
+<td>API cannot reach Redis — check container status</td>
+</tr>
+<tr>
+<td><code>Task retry</code> (in worker logs)</td>
+<td>A Celery task failed and is being retried. Check the error message that precedes it.</td>
+</tr>
+<tr>
+<td><code>LicenseMiddleware: failed to read license status</code></td>
+<td>Database connectivity issue during a write request</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="13-updating-sentari">13. Updating Sentari<a class="headerlink" href="#13-updating-sentari" title="Permanent link">&para;</a></h2>
+<h3 id="before-every-upgrade">Before every upgrade<a class="headerlink" href="#before-every-upgrade" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Read the release notes for the new version</li>
+<li>Back up the database (see <a href="#4-database-backup-and-restore">Section 4</a>)</li>
+<li>Note the current image tag in use (<code>VERSION</code> in <code>.env</code> or the <code>image.tag</code> in <code>values.yaml</code>)</li>
+</ol>
+<p>Database migrations run automatically on startup via Alembic. You do not need to run migrations manually. If a migration fails, the service will log the error and exit — restore the database backup and contact support before retrying.</p>
+<h3 id="docker-compose_4">Docker Compose<a class="headerlink" href="#docker-compose_4" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Update <code>VERSION</code> in <code>deploy/.env</code> to the target release tag (e.g. <code>1.2.0</code>):
+   <div class="highlight"><pre><span></span><code><span class="c1"># In deploy/.env</span>
+<span class="nv">VERSION</span><span class="o">=</span><span class="m">1</span>.2.0
+</code></pre></div></p>
+</li>
+<li>
+<p>Pull the new images and restart:
+   <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>deploy
+docker<span class="w"> </span>compose<span class="w"> </span>--env-file<span class="w"> </span>.env<span class="w"> </span>pull
+docker<span class="w"> </span>compose<span class="w"> </span>--env-file<span class="w"> </span>.env<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div></p>
+</li>
+<li>
+<p>Verify the update:
+   <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>https://&lt;server-hostname&gt;/api/health
+docker<span class="w"> </span>compose<span class="w"> </span>ps
+</code></pre></div></p>
+</li>
+<li>
+<p>Check the API logs for migration output:
+   <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>sentari-api<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;alembic\|migration\|Running upgrade&quot;</span>
+</code></pre></div></p>
+</li>
+</ol>
+<h3 id="openshift-helm_1">OpenShift (Helm)<a class="headerlink" href="#openshift-helm_1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Update <code>image.tag</code> in <code>values.yaml</code>:
+   <div class="highlight"><pre><span></span><code><span class="nt">image</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.2.0&quot;</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Run <code>helm upgrade</code>:
+   <div class="highlight"><pre><span></span><code>helm<span class="w"> </span>upgrade<span class="w"> </span>sentari<span class="w"> </span>./sentari<span class="w"> </span>-f<span class="w"> </span>values.yaml<span class="w"> </span>--namespace<span class="w"> </span>sentari
+</code></pre></div></p>
+</li>
+<li>
+<p>Monitor the rollout:
+   <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>rollout<span class="w"> </span>status<span class="w"> </span>deployment/sentari-api
+oc<span class="w"> </span>rollout<span class="w"> </span>status<span class="w"> </span>deployment/sentari-worker
+oc<span class="w"> </span>rollout<span class="w"> </span>status<span class="w"> </span>deployment/sentari-beat
+</code></pre></div></p>
+</li>
+<li>
+<p>Verify:
+   <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>https://&lt;route-hostname&gt;/api/health
+</code></pre></div></p>
+</li>
+</ol>
+<h3 id="rolling-back">Rolling back<a class="headerlink" href="#rolling-back" title="Permanent link">&para;</a></h3>
+<p>If the update causes problems, roll back to the previous image tag.</p>
+<p><strong>Docker Compose:</strong> Set <code>VERSION</code> back to the previous tag and run <code>docker compose up -d</code>. If the new version ran migrations that are incompatible with the old version, restore the database backup instead of simply rolling back the image.</p>
+<p><strong>OpenShift:</strong>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>rollout<span class="w"> </span>undo<span class="w"> </span>deployment/sentari-api
+oc<span class="w"> </span>rollout<span class="w"> </span>undo<span class="w"> </span>deployment/sentari-worker
+oc<span class="w"> </span>rollout<span class="w"> </span>undo<span class="w"> </span>deployment/sentari-beat
+</code></pre></div></p>
+<p>After rolling back, restore the database backup if any migrations ran against the schema.</p>
+<hr />
+<h2 id="14-task-monitoring-with-flower">14. Task Monitoring with Flower<a class="headerlink" href="#14-task-monitoring-with-flower" title="Permanent link">&para;</a></h2>
+<p>Flower is a web UI for inspecting the Celery task queue — pending tasks, failures, per-task throughput, worker heartbeats. It is <strong>opt-in</strong> and <strong>not exposed to end users</strong>: Flower's admin REST API can revoke, replay, and introspect tasks, so it stays off by default and behind HTTP basic auth when enabled. There is deliberately no Ingress/Route — operators access it via <code>kubectl port-forward</code> or a local Docker Compose profile.</p>
+<h3 id="when-you-need-it">When you need it<a class="headerlink" href="#when-you-need-it" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Triaging "my alert never arrived" — check whether <code>deliver_alert</code> is backlogged or failing.</li>
+<li>Post-incident forensics — which tasks fired during a CVE-sync storm, how long did each take.</li>
+<li>Verifying a rollout — after upgrading the worker image, watch success/failure rates before declaring done.</li>
+</ul>
+<h3 id="enabling-on-docker-compose">Enabling on Docker Compose<a class="headerlink" href="#enabling-on-docker-compose" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set a strong basic-auth credential in your .env</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;SENTARI_FLOWER_BASIC_AUTH=admin:</span><span class="k">$(</span>openssl<span class="w"> </span>rand<span class="w"> </span>-base64<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;=+/&#39;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.env
+
+<span class="c1"># Flower is in the &quot;ops&quot; profile — not started by default</span>
+docker<span class="w"> </span>compose<span class="w"> </span>--profile<span class="w"> </span>ops<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>sentari-flower
+
+<span class="c1"># Open http://127.0.0.1:5555/flower/ and authenticate with the credential above.</span>
+</code></pre></div>
+<p>Flower binds to <code>127.0.0.1:5555</code> by default. Do <strong>not</strong> set <code>SENTARI_FLOWER_BIND=0.0.0.0</code> unless you've put a reverse proxy with its own auth in front.</p>
+<h3 id="enabling-on-helm-openshift">Enabling on Helm / OpenShift<a class="headerlink" href="#enabling-on-helm-openshift" title="Permanent link">&para;</a></h3>
+<p>Add to your values override:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">flower</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="c1"># Option 1 — let the chart manage the Secret (dev / simple deploys).</span>
+<span class="nt">secrets</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">flowerBasicAuth</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;admin:longrandompasswordhere&quot;</span>
+
+<span class="c1"># Option 2 — use an externally-managed Secret (GitOps, vault-injected).</span>
+<span class="c1"># The referenced Secret MUST include a key named ``flower-basic-auth``</span>
+<span class="c1"># whose value is ``user:password``.</span>
+<span class="c1"># secrets:</span>
+<span class="c1">#   existingSecretName: &quot;sentari-shared-secrets&quot;</span>
+</code></pre></div>
+<p>Upgrade the release:</p>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>upgrade<span class="w"> </span>&lt;release&gt;<span class="w"> </span>deploy/helm/sentari<span class="w"> </span>-f<span class="w"> </span>values-override.yaml
+</code></pre></div>
+<p>Access pattern — the Service is ClusterIP-only, so tunnel from your workstation:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>port-forward<span class="w"> </span>svc/&lt;release&gt;-flower<span class="w"> </span><span class="m">5555</span>:5555
+<span class="c1"># then http://127.0.0.1:5555/flower/</span>
+</code></pre></div>
+<h3 id="what-to-look-at-first">What to look at first<a class="headerlink" href="#what-to-look-at-first" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Active / Scheduled</strong> — are any tasks stuck? A Celery worker restart normally releases them.</li>
+<li><strong>Failures</strong> — the red counter on the top bar. Click through to see the traceback.</li>
+<li><strong>Workers</strong> — heartbeat status. A worker that stops beating is either OOMed or its network to Redis is broken.</li>
+<li><strong>Broker</strong> — queue length per task. An unusual spike in <code>correlate_scan</code> means CVE correlation is backlogged (check for the fleet-wide scan that just landed).</li>
+</ul>
+<h3 id="disabling">Disabling<a class="headerlink" href="#disabling" title="Permanent link">&para;</a></h3>
+<p>Docker Compose: <code>docker compose --profile ops down sentari-flower</code>.
+Helm: set <code>flower.enabled: false</code> and run <code>helm upgrade</code>. The Secret key stays in place but goes unused.</p>
+<hr />
+<p><em>For agent installation, see <a href="../agent/install/">Agent Install</a>. For support, contact your Sentari account team.</em></p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 28, 2026</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © Sentari
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.tabs", "navigation.top", "navigation.instant", "search.suggest", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+    
+  </body>
+</html>
