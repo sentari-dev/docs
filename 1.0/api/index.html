@@ -50,6 +50,8 @@
       
     
     
+      <link rel="stylesheet" href="../stylesheets/api.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -375,7 +377,9 @@
           
             
               
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -928,7 +932,9 @@
             
             
               
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" hidden>
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -957,8 +963,7 @@
 <p>The Sentari REST API. All endpoints are served by your Sentari deployment
 under <code>/api/v1</code>. Authentication uses JWT bearer tokens (users) or mTLS client
 certificates (agents).</p>
-<p><redoc spec-url="specs/openapi.json"></redoc></p>
-<script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
+<div id="redoc-container" data-spec="specs/openapi.json"></div>
 
 
 
@@ -989,6 +994,8 @@ certificates (agents).</p>
   </aside>
 
 
+
+  
 
 
 
@@ -1042,6 +1049,10 @@ certificates (agents).</p>
     
     
       <script src="../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
+      
+        <script src="../javascripts/redoc-init.js"></script>
       
     
   </body>
