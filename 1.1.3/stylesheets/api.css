@@ -1,0 +1,14 @@
+/* Full-width treatment for the embedded ReDoc API reference.
+   Scoped via :has(#redoc-container) so the rest of the site keeps Material's
+   normal reading width. The page itself hides the left nav + right TOC via
+   front matter (hide: navigation, toc), which frees the horizontal space. */
+
+.md-main:has(#redoc-container) .md-content {
+  max-width: none;
+}
+
+#redoc-container {
+  display: block;
+  min-height: 80vh;
+  margin-top: 1rem;
+}
