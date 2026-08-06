@@ -1,0 +1,1750 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Enterprise software inventory, vulnerability & regulatory-compliance platform — deployment, administration, and API reference.">
+      
+      
+      
+        <link rel="canonical" href="https://docs.sentari.dev/dev/deployment/openshift/">
+      
+      
+        <link rel="prev" href="../docker-compose/">
+      
+      
+        <link rel="next" href="../kubernetes/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>OpenShift - Sentari Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/api.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#openshift-deployment" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Sentari Documentation" class="md-header__button md-logo" aria-label="Sentari Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sentari Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              OpenShift
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/quickstart/" class="md-tabs__link">
+          
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  Deployment
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../agent/" class="md-tabs__link">
+          
+  
+  Agent
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../administration/" class="md-tabs__link">
+        
+  
+    
+  
+  Administration
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../licensing/" class="md-tabs__link">
+        
+  
+    
+  
+  Licensing
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../api/" class="md-tabs__link">
+        
+  
+    
+  
+  API Reference
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../troubleshooting/" class="md-tabs__link">
+        
+  
+    
+  
+  Troubleshooting
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../release-notes/" class="md-tabs__link">
+        
+  
+    
+  
+  Release Notes
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Sentari Documentation" class="md-nav__button md-logo" aria-label="Sentari Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Sentari Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quickstart
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Concepts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Deployment
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Deployment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker-compose/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker Compose
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    OpenShift
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    OpenShift
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contents-of-this-bundle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contents of this bundle
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-create-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1 — Create the project
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-edit-your-values-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2 — Edit your values file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-authenticate-to-the-chart-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3 — Authenticate to the chart registry
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4 — Install
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4 — Install">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#production-keep-secrets-out-of-helm-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      Production: keep secrets out of Helm history
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-external-managed-database-alternative-install-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using external managed database (alternative install form)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-verify-the-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5 — Verify the deployment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-enroll-your-first-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 6 — Enroll your first agent
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uid-security-context-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      UID / Security Context Constraints
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proxy-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proxy configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proxy configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Helm values
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifying-proxy-connectivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verifying proxy connectivity
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-helm-values-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Helm values reference
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#air-gap-internal-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Air-gap / internal registry
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrading
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubernetes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kubernetes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../private-registry/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Private Registry
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../postgresql/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PostgreSQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration-reference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuration Reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Agent
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Agent
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../agent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Editions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../agent/install/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../agent/technical-reference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Technical Reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../administration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Administration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../licensing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Licensing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Release Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contents-of-this-bundle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contents of this bundle
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-create-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1 — Create the project
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-edit-your-values-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2 — Edit your values file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-authenticate-to-the-chart-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3 — Authenticate to the chart registry
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4 — Install
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4 — Install">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#production-keep-secrets-out-of-helm-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      Production: keep secrets out of Helm history
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-external-managed-database-alternative-install-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using external managed database (alternative install form)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-verify-the-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5 — Verify the deployment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-enroll-your-first-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 6 — Enroll your first agent
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uid-security-context-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      UID / Security Context Constraints
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proxy-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proxy configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proxy configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Helm values
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifying-proxy-connectivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verifying proxy connectivity
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-helm-values-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Helm values reference
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#air-gap-internal-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Air-gap / internal registry
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrading
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="openshift-deployment">OpenShift Deployment<a class="headerlink" href="#openshift-deployment" title="Permanent link">&para;</a></h1>
+<p><strong>Audience:</strong> Administrators deploying Sentari on Red Hat OpenShift</p>
+<p><strong>What you need:</strong> the OpenShift bundle (download from your Sentari release),
+<code>oc</code> + <code>helm</code> 3.8+, a Sentari license key, and pull access to the published
+chart and images (or an internal mirror). <strong>No source repository required</strong> —
+the chart is pulled from the OCI registry.</p>
+<p><strong>Kubernetes users:</strong> See <a href="../kubernetes/">Kubernetes Deployment</a> instead.</p>
+<hr />
+<p>Sentari's Helm chart includes OpenShift-specific support: a Route resource
+(replacing Ingress) and a pod SecurityContext that omits fixed UIDs so
+OpenShift's default <code>restricted-v2</code> Security Context Constraints (SCC) can run
+the workloads without any cluster-admin action.</p>
+<hr />
+<h2 id="contents-of-this-bundle">Contents of this bundle<a class="headerlink" href="#contents-of-this-bundle" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>values.yaml</code></td>
+<td>Evaluation values — bundled TimescaleDB + Redis.</td>
+</tr>
+<tr>
+<td><code>values-external-db.yaml</code></td>
+<td>Production values — external managed DB + Redis, NetworkPolicy + PDB on.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Which values file?</strong> Use <code>values.yaml</code> for a quick evaluation. Use
+<code>values-external-db.yaml</code> for production — running stateful DB/Redis images
+under OpenShift's restricted SCC adds UID complexity that external services avoid.</p>
+</blockquote>
+<hr />
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<ul>
+<li>OpenShift 4.12+ with <code>oc</code> logged in as a user who can create a project.</li>
+<li>Helm 3.8+ (OCI support).</li>
+<li>A Sentari <strong>license key</strong>.</li>
+<li>Pull access to <code>ghcr.io/sentari-dev/sentari/*</code> (or mirror them — see <a href="#air-gap-internal-registry">Air-gap / internal registry</a>).</li>
+<li><strong>Production:</strong> a managed PostgreSQL (TimescaleDB extension recommended) and Redis.</li>
+</ul>
+<hr />
+<h2 id="step-1-create-the-project">Step 1 — Create the project<a class="headerlink" href="#step-1-create-the-project" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>new-project<span class="w"> </span>sentari
+</code></pre></div>
+<hr />
+<h2 id="step-2-edit-your-values-file">Step 2 — Edit your values file<a class="headerlink" href="#step-2-edit-your-values-file" title="Permanent link">&para;</a></h2>
+<p>Open <code>values.yaml</code> (evaluation) or <code>values-external-db.yaml</code> (production) and
+replace every <code>REPLACE-...</code> placeholder. Generate the cryptographic values:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># secretKey (64 hex)</span>
+python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import secrets; print(secrets.token_hex(32))&quot;</span>
+<span class="c1"># configKey (base64, 32 bytes)</span>
+python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import os,base64; print(base64.b64encode(os.urandom(32)).decode())&quot;</span>
+<span class="c1"># enrollmentToken / passwords</span>
+python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import secrets; print(secrets.token_hex(16))&quot;</span>
+</code></pre></div>
+<p>Set <code>route.host</code> to your OpenShift apps domain, e.g.
+<code>sentari.apps.cluster.example.com</code>.</p>
+<hr />
+<h2 id="step-3-authenticate-to-the-chart-registry">Step 3 — Authenticate to the chart registry<a class="headerlink" href="#step-3-authenticate-to-the-chart-registry" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&lt;PULL_TOKEN&gt;&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>helm<span class="w"> </span>registry<span class="w"> </span>login<span class="w"> </span>ghcr.io<span class="w"> </span>-u<span class="w"> </span>&lt;your-username&gt;<span class="w"> </span>--password-stdin
+</code></pre></div>
+<p>(Skip if you mirror the chart internally — see <a href="#air-gap-internal-registry">Air-gap / internal registry</a>.)</p>
+<hr />
+<h2 id="step-4-install">Step 4 — Install<a class="headerlink" href="#step-4-install" title="Permanent link">&para;</a></h2>
+<p>Replace <code>&lt;release&gt;</code> with the Sentari version you are deploying (e.g. <code>1.0.0</code>).</p>
+<p><strong>Evaluation (bundled DB):</strong></p>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>sentari<span class="w"> </span>oci://ghcr.io/sentari-dev/sentari/charts/sentari<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--version<span class="w"> </span>&lt;release&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-f<span class="w"> </span>values.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-n<span class="w"> </span>sentari
+</code></pre></div>
+<p><strong>Production (external DB):</strong></p>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>sentari<span class="w"> </span>oci://ghcr.io/sentari-dev/sentari/charts/sentari<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--version<span class="w"> </span>&lt;release&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-f<span class="w"> </span>values-external-db.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-n<span class="w"> </span>sentari
+</code></pre></div>
+<h3 id="production-keep-secrets-out-of-helm-history">Production: keep secrets out of Helm history<a class="headerlink" href="#production-keep-secrets-out-of-helm-history" title="Permanent link">&para;</a></h3>
+<p>Helm stores <code>-f</code> values in-cluster (<code>helm get values</code> can expose them).
+For production, pre-create the Secret and set <code>secrets.existingSecretName</code>
+in <code>values-external-db.yaml</code>:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>sentari-credentials<span class="w"> </span>-n<span class="w"> </span>sentari<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span>database-url<span class="o">=</span><span class="s2">&quot;postgresql+psycopg2://sentari:&lt;pw&gt;@&lt;host&gt;:5432/sentari&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span>redis-url<span class="o">=</span><span class="s2">&quot;redis://:&lt;pw&gt;@&lt;host&gt;:6379/0&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span>secret-key<span class="o">=</span><span class="s2">&quot;&lt;64-hex&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span>config-key<span class="o">=</span><span class="s2">&quot;&lt;base64-32-byte&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span>enrollment-token<span class="o">=</span><span class="s2">&quot;&lt;token&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span>bootstrap-admin-email<span class="o">=</span><span class="s2">&quot;admin@example.com&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span>bootstrap-admin-password<span class="o">=</span><span class="s2">&quot;&lt;pw&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span>license-key<span class="o">=</span><span class="s2">&quot;&lt;license&gt;&quot;</span>
+</code></pre></div>
+<p>Then set <code>secrets.existingSecretName: sentari-credentials</code> and re-run the install.</p>
+<h3 id="using-external-managed-database-alternative-install-form">Using external managed database (alternative install form)<a class="headerlink" href="#using-external-managed-database-alternative-install-form" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>sentari<span class="w"> </span>oci://ghcr.io/sentari-dev/sentari/charts/sentari<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--version<span class="w"> </span><span class="m">1</span>.0.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>openshift.enabled<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>route.host<span class="o">=</span>sentari.apps.&lt;cluster-domain&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>database.external<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>redis.external<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.databaseUrl<span class="o">=</span><span class="s2">&quot;postgresql+psycopg2://sentari:&lt;password&gt;@&lt;host&gt;:5432/sentari&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.redisUrl<span class="o">=</span><span class="s2">&quot;redis://:&lt;password&gt;@&lt;host&gt;:6379/0&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.secretKey<span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import secrets; print(secrets.token_hex(32))&#39;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.enrollmentToken<span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import secrets; print(secrets.token_hex(16))&#39;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.bootstrapAdminEmail<span class="o">=</span><span class="s2">&quot;admin@yourorganisation.com&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.bootstrapAdminPassword<span class="o">=</span><span class="s2">&quot;ChangeMe123!&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--namespace<span class="w"> </span>sentari<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--create-namespace
+</code></pre></div>
+<p>The chart creates the Kubernetes Secret for you from these values — no separate step required.</p>
+<hr />
+<h2 id="step-5-verify-the-deployment">Step 5 — Verify the deployment<a class="headerlink" href="#step-5-verify-the-deployment" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>sentari<span class="w"> </span>-w<span class="w">        </span><span class="c1"># wait for all pods Ready</span>
+
+<span class="nv">ROUTE</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>route<span class="w"> </span>sentari-api<span class="w"> </span>-n<span class="w"> </span>sentari<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.spec.host}&#39;</span><span class="k">)</span>
+curl<span class="w"> </span>-sf<span class="w"> </span>https://<span class="nv">$ROUTE</span>/api/health
+<span class="c1"># Expected: {&quot;status&quot;: &quot;ok&quot;, &quot;version&quot;: &quot;...&quot;}</span>
+</code></pre></div>
+<p>Open <code>https://$ROUTE</code> and log in with the bootstrap admin credentials from your
+values file. <strong>Change the password after first login.</strong></p>
+<hr />
+<h2 id="step-6-enroll-your-first-agent">Step 6 — Enroll your first agent<a class="headerlink" href="#step-6-enroll-your-first-agent" title="Permanent link">&para;</a></h2>
+<p>Install the agent on an endpoint pointed at <code>https://$ROUTE</code> with your
+enrollment token — see the <strong><a href="../../agent/install/">Agent deployment guide</a></strong>.</p>
+<hr />
+<h2 id="uid-security-context-constraints">UID / Security Context Constraints<a class="headerlink" href="#uid-security-context-constraints" title="Permanent link">&para;</a></h2>
+<p>When <code>openshift.enabled=true</code>, the chart <strong>omits all fixed UIDs and <code>fsGroup</code></strong> from
+the application pod SecurityContext (<code>runAsUser</code>, <code>runAsGroup</code>, and <code>fsGroup</code> are
+rendered only when <code>openshift.enabled=false</code>). OpenShift's default <code>restricted-v2</code>
+SCC then assigns a UID and <code>fsGroup</code> from the namespace's allocated range, and the
+image is built to run under any injected UID.</p>
+<p>This is the supported posture: <strong>no namespace annotation, ServiceAccount SCC annotation,
+or other cluster-admin action is required.</strong> A plain <code>helm install --set openshift.enabled=true</code>
+is admitted by <code>restricted-v2</code> out of the box.</p>
+<blockquote>
+<p><strong>Bundled StatefulSets:</strong> If you deploy the bundled TimescaleDB and Redis StatefulSets,
+those images expect specific UIDs and may need additional SCC handling. For production
+OpenShift deployments, using <strong>external managed database and Redis services</strong> avoids all
+UID complexity and is the recommended approach.</p>
+</blockquote>
+<hr />
+<h2 id="proxy-configuration">Proxy configuration<a class="headerlink" href="#proxy-configuration" title="Permanent link">&para;</a></h2>
+<p>If your OpenShift cluster routes outbound traffic through a corporate proxy, configure
+the <code>proxy</code> section in your Helm values. This is required for Sentari to reach:</p>
+<ul>
+<li><strong>License server</strong> (<code>license.sentari.dev</code>) — license validation</li>
+<li><strong>CVE feeds</strong> (<code>osv-vulnerabilities.storage.googleapis.com</code>) — vulnerability database sync</li>
+<li><strong>SIEM webhooks</strong> — if configured for alert delivery to an external endpoint</li>
+</ul>
+<h3 id="helm-values">Helm values<a class="headerlink" href="#helm-values" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nt">proxy</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">httpProxy</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://proxy.corp.internal:3128&quot;</span>
+<span class="w">  </span><span class="nt">httpsProxy</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://proxy.corp.internal:3128&quot;</span>
+<span class="w">  </span><span class="nt">noProxy</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;localhost,127.0.0.1,.cluster.local&quot;</span>
+</code></pre></div>
+<p>Or via <code>--set</code> flags:</p>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>sentari<span class="w"> </span>oci://ghcr.io/sentari-dev/sentari/charts/sentari<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--version<span class="w"> </span><span class="m">1</span>.0.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--namespace<span class="w"> </span>sentari<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>proxy.httpProxy<span class="o">=</span><span class="s2">&quot;http://proxy.corp.internal:3128&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>proxy.httpsProxy<span class="o">=</span><span class="s2">&quot;http://proxy.corp.internal:3128&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>...
+</code></pre></div>
+<p>The chart automatically appends the release-prefixed service names (e.g. <code>sentari-db</code>,
+<code>sentari-redis</code>) to <code>NO_PROXY</code> so that internal pod-to-pod traffic is never sent through
+the proxy.</p>
+<p>If your proxy requires authentication, include credentials in the URL:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">proxy</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">httpsProxy</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://username:password@proxy.corp.internal:3128&quot;</span>
+</code></pre></div>
+<h3 id="verifying-proxy-connectivity">Verifying proxy connectivity<a class="headerlink" href="#verifying-proxy-connectivity" title="Permanent link">&para;</a></h3>
+<p>After deployment, verify the server can reach the license endpoint through the proxy:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>deploy/sentari-api<span class="w"> </span>-n<span class="w"> </span>sentari<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import httpx; print(httpx.get(&#39;https://license.sentari.dev/health&#39;).status_code)&quot;</span>
+</code></pre></div>
+<p>Expected: <code>200</code>.</p>
+<hr />
+<h2 id="key-helm-values-reference">Key Helm values reference<a class="headerlink" href="#key-helm-values-reference" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>openshift.enabled</code></td>
+<td><code>false</code></td>
+<td>Enable OpenShift-specific resources (Route; omits fixed UIDs/<code>fsGroup</code> so <code>restricted-v2</code> admits the pods)</td>
+</tr>
+<tr>
+<td><code>route.host</code></td>
+<td><code>""</code></td>
+<td>OpenShift Route hostname</td>
+</tr>
+<tr>
+<td><code>route.tlsTermination</code></td>
+<td><code>edge</code></td>
+<td>TLS termination: <code>edge</code>, <code>passthrough</code>, or <code>reencrypt</code></td>
+</tr>
+<tr>
+<td><code>secrets.existingSecretName</code></td>
+<td><code>""</code></td>
+<td>Use a pre-created Secret instead of chart values</td>
+</tr>
+<tr>
+<td><code>secrets.dbPassword</code></td>
+<td><code>""</code></td>
+<td>PostgreSQL password (bundled DB mode)</td>
+</tr>
+<tr>
+<td><code>secrets.redisPassword</code></td>
+<td><code>""</code></td>
+<td>Redis password (bundled Redis mode)</td>
+</tr>
+<tr>
+<td><code>secrets.secretKey</code></td>
+<td><code>""</code></td>
+<td>JWT signing key (always required)</td>
+</tr>
+<tr>
+<td><code>database.external</code></td>
+<td><code>false</code></td>
+<td>Use external DB instead of bundled TimescaleDB</td>
+</tr>
+<tr>
+<td><code>redis.external</code></td>
+<td><code>false</code></td>
+<td>Use external Redis instead of bundled</td>
+</tr>
+<tr>
+<td><code>image.registry</code></td>
+<td><code>ghcr.io</code></td>
+<td>Registry for the server image</td>
+</tr>
+<tr>
+<td><code>api.replicas</code></td>
+<td><code>1</code></td>
+<td>Number of API pod replicas</td>
+</tr>
+<tr>
+<td><code>worker.replicas</code></td>
+<td><code>1</code></td>
+<td>Number of Celery worker replicas</td>
+</tr>
+<tr>
+<td><code>proxy.httpProxy</code></td>
+<td><code>""</code></td>
+<td>HTTP proxy URL for outbound connections</td>
+</tr>
+<tr>
+<td><code>proxy.httpsProxy</code></td>
+<td><code>""</code></td>
+<td>HTTPS proxy URL for outbound connections</td>
+</tr>
+<tr>
+<td><code>proxy.noProxy</code></td>
+<td><code>"localhost,127.0.0.1,.cluster.local"</code></td>
+<td>Hosts to bypass the proxy</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="air-gap-internal-registry">Air-gap / internal registry<a class="headerlink" href="#air-gap-internal-registry" title="Permanent link">&para;</a></h2>
+<p>Mirror the chart and images into your internal registry, then override the
+image registries in your values file:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">image</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">registry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry.corp.internal</span>
+<span class="nt">database</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> registry</span><span class="p">:</span><span class="w"> </span><span class="nv">registry.corp.internal</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="nt">redis</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> registry</span><span class="p">:</span><span class="w"> </span><span class="nv">registry.corp.internal</span><span class="w"> </span><span class="p p-Indicator">}</span>
+</code></pre></div>
+<p>Images to mirror: <code>ghcr.io/sentari-dev/sentari/server</code>,
+<code>ghcr.io/sentari-dev/sentari/docs</code>, <code>docker.io/timescale/timescaledb:2.14.2-pg16</code>,
+<code>docker.io/redis:7.2-alpine</code>. Pull the chart with
+<code>helm pull oci://ghcr.io/sentari-dev/sentari/charts/sentari --version &lt;release&gt;</code>
+and re-push it to your registry, or install from the local <code>.tgz</code>.</p>
+<p>Air-gap licensing uses a license key with a signed <code>max_offline_days</code> claim.</p>
+<hr />
+<h2 id="upgrading">Upgrading<a class="headerlink" href="#upgrading" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>upgrade<span class="w"> </span>sentari<span class="w"> </span>oci://ghcr.io/sentari-dev/sentari/charts/sentari<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--version<span class="w"> </span>&lt;new-release&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-f<span class="w"> </span>values.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-n<span class="w"> </span>sentari
+</code></pre></div>
+<p>Database migrations run automatically on startup. Downgrading is not supported — always
+back up the database before upgrading.</p>
+<hr />
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<p><strong>Pods Pending / SCC errors.</strong> Confirm <code>openshift.enabled=true</code> is set. For the
+bundled DB path, prefer external DB/Redis if the StatefulSet pods fail admission.</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>sentari<span class="w"> </span>&lt;pod-name&gt;
+</code></pre></div>
+<p><strong>API not healthy.</strong> Check logs for migration or configuration errors:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>logs<span class="w"> </span>deploy/sentari-api<span class="w"> </span>-n<span class="w"> </span>sentari<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;migration\|alembic\|error&quot;</span>
+</code></pre></div>
+<p>Common causes: placeholder <code>secretKey</code>; missing <code>licenseKey</code> (server boots read-only,
+writes return HTTP 402); wrong external DB/Redis URL.</p>
+<p><strong>Agent can't connect.</strong> Verify the Route is accessible: <code>curl https://&lt;route-host&gt;/api/health</code>.
+Check the agent log at <code>/var/log/sentari/agent.log</code>. If certificates are corrupted,
+re-enroll: delete <code>/var/lib/sentari/certs/</code> and run with <code>--enroll-token</code>.</p>
+<hr />
+<p><em>For additional assistance, contact your Sentari representative or visit the support portal.</em></p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 28, 2026</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © Sentari
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.tabs", "navigation.top", "navigation.instant", "search.suggest", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
+      
+        <script src="../../javascripts/redoc-init.js"></script>
+      
+    
+  </body>
+</html>
