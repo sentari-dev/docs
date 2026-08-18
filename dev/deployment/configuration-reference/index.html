@@ -1336,7 +1336,7 @@ LDAP, the KEK split, <code>proxy_auth</code>) are applied through the <code>extr
 which is injected into the API, worker, and beat pods:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">extraEnv</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SENTARI_OIDC_ISSUER_URL</span>
-<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://login.example.com/realms/sentari&quot;</span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">"https://login.example.com/realms/sentari"</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SENTARI_OIDC_CLIENT_SECRET</span>
 <span class="w">    </span><span class="nt">valueFrom</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">secretKeyRef</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> name</span><span class="p">:</span><span class="w"> </span><span class="nv">my-oidc-secret</span><span class="p p-Indicator">,</span><span class="nt"> key</span><span class="p">:</span><span class="w"> </span><span class="nv">client-secret</span><span class="w"> </span><span class="p p-Indicator">}</span>

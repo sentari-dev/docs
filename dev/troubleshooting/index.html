@@ -2766,13 +2766,13 @@
 <span class="na">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">https://sentari.example.com</span>
 </code></pre></div>
 <p>Enrollment tokens are passed as a flag at first run:</p>
-<div class="highlight"><pre><span></span><code>sentari-agent-enterprise<span class="w"> </span>--config<span class="w"> </span>&lt;path&gt;<span class="w"> </span>--enroll-token<span class="w"> </span><span class="s2">&quot;&lt;your-enrollment-token&gt;&quot;</span>
+<div class="highlight"><pre><span></span><code>sentari-agent-enterprise<span class="w"> </span>--config<span class="w"> </span>&lt;path&gt;<span class="w"> </span>--enroll-token<span class="w"> </span><span class="s2">"&lt;your-enrollment-token&gt;"</span>
 </code></pre></div>
 <p>Verify the server-side token matches. On Docker Compose deployments, check your <code>.env</code> file:</p>
 <div class="highlight"><pre><span></span><code>grep<span class="w"> </span>SENTARI_ENROLLMENT_TOKEN<span class="w"> </span>/path/to/sentari/.env
 </code></pre></div>
 <p>On Kubernetes/OpenShift, check the Secret:</p>
-<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>sentari-api-env<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.data.SENTARI_ENROLLMENT_TOKEN}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>sentari-api-env<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.data.SENTARI_ENROLLMENT_TOKEN}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d
 </code></pre></div>
 <p>The value must be identical (including case) on both sides.</p>
 <h4 id="cause-server-unreachable">Cause: Server unreachable<a class="headerlink" href="#cause-server-unreachable" title="Permanent link">&para;</a></h4>
@@ -2857,7 +2857,7 @@ oc<span class="w"> </span>logs<span class="w"> </span>deployment/sentari-redis<s
 journalctl<span class="w"> </span>-u<span class="w"> </span>sentari-agent<span class="w"> </span>-n<span class="w"> </span><span class="m">50</span><span class="w"> </span>--no-pager
 
 <span class="c1"># Windows</span>
-Get-EventLog<span class="w"> </span>-LogName<span class="w"> </span>Application<span class="w"> </span>-Source<span class="w"> </span><span class="s2">&quot;SentariAgent&quot;</span><span class="w"> </span>-Newest<span class="w"> </span><span class="m">20</span>
+Get-EventLog<span class="w"> </span>-LogName<span class="w"> </span>Application<span class="w"> </span>-Source<span class="w"> </span><span class="s2">"SentariAgent"</span><span class="w"> </span>-Newest<span class="w"> </span><span class="m">20</span>
 </code></pre></div>
 <p>A log line confirming a completed upload indicates the scan was submitted successfully and the issue is on the server side (Celery/Redis).</p>
 <h4 id="cause-proxy-blocking-agent-to-server-communication">Cause: Proxy blocking agent-to-server communication<a class="headerlink" href="#cause-proxy-blocking-agent-to-server-communication" title="Permanent link">&para;</a></h4>
@@ -2878,8 +2878,8 @@ systemctl<span class="w"> </span>start<span class="w"> </span>sentari-agent
 </code></pre></div>
 <p><strong>Resolution — Windows (Task Manager / Services):</strong></p>
 <p>Open <code>services.msc</code>, locate "Sentari Agent", and start the service. Or use PowerShell:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">Start-Service</span> <span class="n">-Name</span> <span class="s2">&quot;SentariAgent&quot;</span>
-<span class="nb">Get-Service</span> <span class="n">-Name</span> <span class="s2">&quot;SentariAgent&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nb">Start-Service</span> <span class="n">-Name</span> <span class="s2">"SentariAgent"</span>
+<span class="nb">Get-Service</span> <span class="n">-Name</span> <span class="s2">"SentariAgent"</span>
 </code></pre></div>
 <p>To configure automatic restart after failure, verify the service recovery options in the Windows installer were applied correctly (the provided <code>install.ps1</code> sets these by default).</p>
 <h4 id="cause-endpoint-clock-skew">Cause: Endpoint clock skew<a class="headerlink" href="#cause-endpoint-clock-skew" title="Permanent link">&para;</a></h4>
@@ -2913,7 +2913,7 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 
 --<span class="w"> </span>Generate<span class="w"> </span>a<span class="w"> </span>new<span class="w"> </span>bcrypt<span class="w"> </span><span class="nb">hash</span><span class="w"> </span>first<span class="w"> </span><span class="o">(</span>use<span class="w"> </span>a<span class="w"> </span>Python<span class="w"> </span>one-liner<span class="w"> </span>or<span class="w"> </span>an<span class="w"> </span>online<span class="w"> </span>tool<span class="o">)</span>
 --<span class="w"> </span>Then<span class="w"> </span>update<span class="w"> </span>the<span class="w"> </span>user<span class="w"> </span>record
-UPDATE<span class="w"> </span>users<span class="w"> </span>SET<span class="w"> </span><span class="nv">hashed_password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&lt;new-bcrypt-hash&gt;&#39;</span><span class="w"> </span>WHERE<span class="w"> </span><span class="nv">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;admin@example.com&#39;</span><span class="p">;</span>
+UPDATE<span class="w"> </span>users<span class="w"> </span>SET<span class="w"> </span><span class="nv">hashed_password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'&lt;new-bcrypt-hash&gt;'</span><span class="w"> </span>WHERE<span class="w"> </span><span class="nv">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'admin@example.com'</span><span class="p">;</span>
 <span class="se">\q</span>
 </code></pre></div>
 <h4 id="cause-stale-browser-session">Cause: Stale browser session<a class="headerlink" href="#cause-stale-browser-session" title="Permanent link">&para;</a></h4>
@@ -2983,7 +2983,7 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 <p><strong>Resolution — Docker Compose:</strong></p>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>ps<span class="w"> </span>sentari-db
 docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sentari-db<span class="w"> </span>pg_isready<span class="w"> </span>-U<span class="w"> </span>sentari
-docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">30</span><span class="w"> </span>sentari-api<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;database\|sqlalchemy\|psycopg&quot;</span>
+docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">30</span><span class="w"> </span>sentari-api<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">"database\|sqlalchemy\|psycopg"</span>
 </code></pre></div>
 <p>If the database container is healthy but the API cannot connect, verify the <code>SENTARI_DATABASE_URL</code> environment variable is correctly set.</p>
 <hr />
@@ -3047,7 +3047,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>restart<span class="w"> </span>sentari-worker<span class="w"> </span>sentari-beat
 </code></pre></div>
 <p><strong>Resolution — OpenShift/Kubernetes:</strong></p>
-<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-l<span class="w"> </span><span class="s1">&#39;app in (sentari-worker, sentari-beat)&#39;</span>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-l<span class="w"> </span><span class="s1">'app in (sentari-worker, sentari-beat)'</span>
 oc<span class="w"> </span>logs<span class="w"> </span>deployment/sentari-worker<span class="w"> </span>--tail<span class="o">=</span><span class="m">50</span>
 oc<span class="w"> </span>logs<span class="w"> </span>deployment/sentari-beat<span class="w"> </span>--tail<span class="o">=</span><span class="m">50</span>
 </code></pre></div>
@@ -3056,11 +3056,11 @@ oc<span class="w"> </span>logs<span class="w"> </span>deployment/sentari-beat<sp
 <p><strong>Resolution:</strong></p>
 <p>In the dashboard, navigate to Settings → CVE and verify the "OSV Bundle Path" field is set to a path accessible from inside the worker container (e.g. <code>/data/osv-bundle.ndjson</code>). The bundle must be mounted into the worker container and the path must match exactly.</p>
 <p>To trigger a manual sync after updating the path, click "Trigger CVE Sync" in the Settings page, or run the sync task in the worker container:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sentari-worker<span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sentari-worker<span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">"</span>
 <span class="s2">from server.tasks.cve import sync_feeds</span>
 <span class="s2">sync_feeds.delay()</span>
-<span class="s2">print(&#39;CVE sync triggered&#39;)</span>
-<span class="s2">&quot;</span>
+<span class="s2">print('CVE sync triggered')</span>
+<span class="s2">"</span>
 </code></pre></div>
 <h4 id="cause-proxy-blocking-outbound-cve-feed-requests">Cause: Proxy blocking outbound CVE feed requests<a class="headerlink" href="#cause-proxy-blocking-outbound-cve-feed-requests" title="Permanent link">&para;</a></h4>
 <p>In internet-connected deployments, the <strong>worker</strong> fetches feeds from <code>api.osv.dev</code> (OSV) and optionally <code>services.nvd.nist.gov</code> (NVD) during the scheduled sync.</p>
@@ -3081,8 +3081,8 @@ oc<span class="w"> </span>logs<span class="w"> </span>deployment/sentari-beat<sp
 <p><strong>Resolution:</strong></p>
 <p>Confirm port 443 outbound to <code>api.osv.dev</code> is allowed through your perimeter firewall. The feed sync runs in the worker container, so test from there:</p>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sentari-worker<span class="w"> </span>curl<span class="w"> </span>-v<span class="w"> </span>--max-time<span class="w"> </span><span class="m">15</span><span class="w"> </span>https://api.osv.dev/v1/query<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;package&quot;: {&quot;name&quot;: &quot;requests&quot;, &quot;ecosystem&quot;: &quot;PyPI&quot;}}&#39;</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Content-Type: application/json"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'{"package": {"name": "requests", "ecosystem": "PyPI"}}'</span>
 </code></pre></div>
 <p>A successful response returns a JSON object. A timeout or connection refused indicates a firewall block.</p>
 <h4 id="cause-nvd-api-rate-limited">Cause: NVD API rate limited<a class="headerlink" href="#cause-nvd-api-rate-limited" title="Permanent link">&para;</a></h4>
@@ -3104,11 +3104,11 @@ oc<span class="w"> </span>logs<span class="w"> </span>deployment/sentari-beat<sp
 <p>Confirm the worker and beat scheduler are running (see §3.1), then inspect the worker logs for the task, or trigger it manually:</p>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">50</span><span class="w"> </span>sentari-worker<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>runtime_eol
 
-docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sentari-worker<span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sentari-worker<span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">"</span>
 <span class="s2">from server.tasks.runtime_eol import sync_runtime_eol_feeds</span>
 <span class="s2">sync_runtime_eol_feeds.delay()</span>
-<span class="s2">print(&#39;Runtime-EOL sync triggered&#39;)</span>
-<span class="s2">&quot;</span>
+<span class="s2">print('Runtime-EOL sync triggered')</span>
+<span class="s2">"</span>
 </code></pre></div>
 <h3 id="34-no-cve-findings-for-os-distro-packages">3.4 No CVE findings for OS / distro packages<a class="headerlink" href="#34-no-cve-findings-for-os-distro-packages" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> Python-package CVEs appear, but Debian/RPM (<code>system_deb</code> / <code>system_rpm</code>) packages show none.</p>
@@ -3160,7 +3160,7 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 <h4 id="cause-smtp-authentication-failure">Cause: SMTP authentication failure<a class="headerlink" href="#cause-smtp-authentication-failure" title="Permanent link">&para;</a></h4>
 <p><strong>Resolution:</strong></p>
 <p>Check the Celery worker logs for authentication errors after a CVE or policy alert is generated:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">100</span><span class="w"> </span>sentari-worker<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;smtp\|email\|alert&quot;</span>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">100</span><span class="w"> </span>sentari-worker<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">"smtp\|email\|alert"</span>
 </code></pre></div>
 <p>Common errors and solutions:</p>
 <table>
@@ -3190,13 +3190,13 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 <p><strong>Resolution:</strong></p>
 <p>Test SMTP connectivity from the worker container:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Test STARTTLS on port 587</span>
-docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sentari-worker<span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sentari-worker<span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">"</span>
 <span class="s2">import smtplib</span>
-<span class="s2">with smtplib.SMTP(&#39;smtp.example.com&#39;, 587, timeout=10) as s:</span>
+<span class="s2">with smtplib.SMTP('smtp.example.com', 587, timeout=10) as s:</span>
 <span class="s2">    s.ehlo()</span>
 <span class="s2">    s.starttls()</span>
-<span class="s2">    print(&#39;STARTTLS OK&#39;)</span>
-<span class="s2">&quot;</span>
+<span class="s2">    print('STARTTLS OK')</span>
+<span class="s2">"</span>
 </code></pre></div>
 <p>If your provider uses implicit TLS on port 465, verify that <code>SMTP_USE_TLS</code> is set correctly in Settings → SMTP.</p>
 <h4 id="cause-celery-worker-not-running_1">Cause: Celery worker not running<a class="headerlink" href="#cause-celery-worker-not-running_1" title="Permanent link">&para;</a></h4>
@@ -3218,17 +3218,17 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 <p>Test connectivity to the SIEM webhook URL from the API or worker container:</p>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sentari-worker<span class="w"> </span>curl<span class="w"> </span>-v<span class="w"> </span>--max-time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-X<span class="w"> </span>POST<span class="w"> </span>https://siem.example.com/webhook<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;test&quot;: true}&#39;</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Content-Type: application/json"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'{"test": true}'</span>
 </code></pre></div>
 <p>If the connection fails, check firewall rules, proxy configuration, and whether the SIEM URL is included in the <code>NO_PROXY</code> bypass list or requires the proxy.</p>
 <h4 id="cause-delivery-errors-in-celery-worker">Cause: Delivery errors in Celery worker<a class="headerlink" href="#cause-delivery-errors-in-celery-worker" title="Permanent link">&para;</a></h4>
 <p><strong>Resolution:</strong></p>
 <p>The webhook delivery task retries up to 5 times with exponential backoff. Check the worker logs for delivery attempts and error details:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">100</span><span class="w"> </span>sentari-worker<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;webhook\|siem\|deliver&quot;</span>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">100</span><span class="w"> </span>sentari-worker<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">"webhook\|siem\|deliver"</span>
 </code></pre></div>
 <p>On OpenShift:</p>
-<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>logs<span class="w"> </span>deployment/sentari-worker<span class="w"> </span>--tail<span class="o">=</span><span class="m">100</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;webhook\|siem\|deliver&quot;</span>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>logs<span class="w"> </span>deployment/sentari-worker<span class="w"> </span>--tail<span class="o">=</span><span class="m">100</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">"webhook\|siem\|deliver"</span>
 </code></pre></div>
 <hr />
 <h2 id="5-performance-issues">5. Performance Issues<a class="headerlink" href="#5-performance-issues" title="Permanent link">&para;</a></h2>
@@ -3237,10 +3237,10 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 <h4 id="cause-database-needs-maintenance">Cause: Database needs maintenance<a class="headerlink" href="#cause-database-needs-maintenance" title="Permanent link">&para;</a></h4>
 <p>TimescaleDB accumulates statistics over time. Running <code>VACUUM ANALYZE</code> refreshes query planner statistics and reclaims space from deleted rows.</p>
 <p><strong>Resolution — Docker Compose:</strong></p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sentari-db<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-d<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;VACUUM ANALYZE;&quot;</span>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sentari-db<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-d<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">"VACUUM ANALYZE;"</span>
 </code></pre></div>
 <p><strong>Resolution — OpenShift/Kubernetes:</strong></p>
-<div class="highlight"><pre><span></span><code>oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>deployment/sentari-db<span class="w"> </span>--<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-d<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;VACUUM ANALYZE;&quot;</span>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>deployment/sentari-db<span class="w"> </span>--<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-d<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">"VACUUM ANALYZE;"</span>
 </code></pre></div>
 <p>Schedule this as a periodic maintenance task (weekly is sufficient for most deployments).</p>
 <h4 id="cause-large-number-of-unacknowledged-alerts">Cause: Large number of unacknowledged alerts<a class="headerlink" href="#cause-large-number-of-unacknowledged-alerts" title="Permanent link">&para;</a></h4>
@@ -3251,9 +3251,9 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 <p>TimescaleDB stores time-series scan data. Without a retention policy, this grows indefinitely.</p>
 <p><strong>Resolution:</strong></p>
 <p>Add a retention policy to limit how long raw scan history is kept. Connect to the database and apply a policy (adjust the interval to match your compliance requirements):</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sentari-db<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-d<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
-<span class="s2">SELECT add_retention_policy(&#39;scan_results&#39;, INTERVAL &#39;365 days&#39;);</span>
-<span class="s2">&quot;</span>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sentari-db<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-d<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">"</span>
+<span class="s2">SELECT add_retention_policy('scan_results', INTERVAL '365 days');</span>
+<span class="s2">"</span>
 </code></pre></div>
 <p>This removes scan data older than 365 days automatically. Adjust the interval based on your organization's data retention policy.</p>
 <hr />
@@ -3262,11 +3262,11 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 <h4 id="cause-growing-timescaledb-scan-history">Cause: Growing TimescaleDB scan history<a class="headerlink" href="#cause-growing-timescaledb-scan-history" title="Permanent link">&para;</a></h4>
 <p><strong>Resolution:</strong></p>
 <p>Check the current size of the TimescaleDB data volume:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sentari-db<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-d<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sentari-db<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-d<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">"</span>
 <span class="s2">SELECT hypertable_name,</span>
-<span class="s2">       pg_size_pretty(hypertable_size(format(&#39;%I&#39;, hypertable_name)::regclass)) AS size</span>
+<span class="s2">       pg_size_pretty(hypertable_size(format('%I', hypertable_name)::regclass)) AS size</span>
 <span class="s2">FROM timescaledb_information.hypertables;</span>
-<span class="s2">&quot;</span>
+<span class="s2">"</span>
 </code></pre></div>
 <p>Apply a data retention policy (see <a href="#cause-large-scan-history-volume">5.1 — Large scan history volume</a>).</p>
 <h4 id="cause-docker-container-log-files-growing-unbounded">Cause: Docker container log files growing unbounded<a class="headerlink" href="#cause-docker-container-log-files-growing-unbounded" title="Permanent link">&para;</a></h4>
@@ -3274,10 +3274,10 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 <p><strong>Resolution:</strong></p>
 <p>Add log rotation to the Docker daemon configuration at <code>/etc/docker/daemon.json</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;log-driver&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;json-file&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;log-opts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;max-size&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;50m&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;max-file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5&quot;</span>
+<span class="w">  </span><span class="nt">"log-driver"</span><span class="p">:</span><span class="w"> </span><span class="s2">"json-file"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"log-opts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"max-size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50m"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"max-file"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -3291,7 +3291,7 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sentari-redis<span class="w"> </span>redis-cli<span class="w"> </span>info<span class="w"> </span>memory<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>used_memory_human
 </code></pre></div>
 <p>To clear all stale Celery task results (this does not affect pending tasks or cached data):</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sentari-redis<span class="w"> </span>redis-cli<span class="w"> </span>--no-auth-warning<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">REDIS_PASSWORD</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>FLUSHDB
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sentari-redis<span class="w"> </span>redis-cli<span class="w"> </span>--no-auth-warning<span class="w"> </span>-a<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">REDIS_PASSWORD</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>FLUSHDB
 </code></pre></div>
 <blockquote>
 <p><strong>Note:</strong> Only flush Redis if you are certain no tasks are currently in-flight. Restart all Celery services immediately after flushing.</p>
@@ -3329,7 +3329,7 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 </tbody>
 </table>
 <p>Generate a suitable secret key:</p>
-<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import secrets; print(secrets.token_hex(32))&quot;</span>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import secrets; print(secrets.token_hex(32))"</span>
 </code></pre></div>
 <h4 id="cause-port-8000-already-in-use">Cause: Port 8000 already in use<a class="headerlink" href="#cause-port-8000-already-in-use" title="Permanent link">&para;</a></h4>
 <p><strong>Resolution:</strong></p>
@@ -3340,13 +3340,13 @@ lsof<span class="w"> </span>-i<span class="w"> </span>:8000
 </code></pre></div>
 <p>Either stop the conflicting process or change the Sentari port binding in <code>docker-compose.yml</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">ports</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;8080:8000&quot;</span><span class="w">  </span><span class="c1"># Expose on host port 8080 instead</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"8080:8000"</span><span class="w">  </span><span class="c1"># Expose on host port 8080 instead</span>
 </code></pre></div>
 <h4 id="cause-database-migration-failure">Cause: Database migration failure<a class="headerlink" href="#cause-database-migration-failure" title="Permanent link">&para;</a></h4>
 <p>Alembic runs migrations automatically on startup. If a migration fails, the API container exits.</p>
 <p><strong>Resolution:</strong></p>
 <p>Inspect the API container logs immediately after startup:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>sentari-api<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;alembic\|migration\|error&quot;</span>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>sentari-api<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">"alembic\|migration\|error"</span>
 </code></pre></div>
 <p>Common causes:
 - The database is not yet ready when the API starts (transient — fixed by the <code>depends_on</code> health check, but may occur on first deployment if the DB takes longer than usual to initialize)
@@ -3367,7 +3367,7 @@ oc<span class="w"> </span>logs<span class="w"> </span>deployment/sentari-api<spa
 <p>OpenShift enforces SCCs that may conflict with the container's SecurityContext.</p>
 <p><strong>Resolution:</strong></p>
 <p>Check for SCC-related events:</p>
-<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>events<span class="w"> </span>--sort-by<span class="o">=</span><span class="s1">&#39;.lastTimestamp&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;scc\|security\|privilege&quot;</span>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>events<span class="w"> </span>--sort-by<span class="o">=</span><span class="s1">'.lastTimestamp'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">"scc\|security\|privilege"</span>
 </code></pre></div>
 <p>Sentari's containers are configured with:
 - <code>allowPrivilegeEscalation: false</code>
@@ -3388,7 +3388,7 @@ oc<span class="w"> </span>describe<span class="w"> </span>pvc<span class="w"> </
 </code></pre></div>
 <p>Update the Helm values to use a storage class available in your cluster:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">persistence</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">storageClass</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;your-storage-class-name&quot;</span>
+<span class="w">  </span><span class="nt">storageClass</span><span class="p">:</span><span class="w"> </span><span class="s">"your-storage-class-name"</span>
 </code></pre></div>
 <hr />
 <h3 id="63-license-validation-fails">6.3 License validation fails<a class="headerlink" href="#63-license-validation-fails" title="Permanent link">&para;</a></h3>
@@ -3430,7 +3430,7 @@ curl<span class="w"> </span>-sf<span class="w"> </span>http://localhost:8000/api
 </code></pre></div>
 <p><strong>OpenShift/Kubernetes:</strong></p>
 <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
-oc<span class="w"> </span>get<span class="w"> </span>events<span class="w"> </span>--sort-by<span class="o">=</span><span class="s1">&#39;.lastTimestamp&#39;</span><span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
+oc<span class="w"> </span>get<span class="w"> </span>events<span class="w"> </span>--sort-by<span class="o">=</span><span class="s1">'.lastTimestamp'</span><span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
 </code></pre></div>
 <h3 id="collect-logs">Collect logs<a class="headerlink" href="#collect-logs" title="Permanent link">&para;</a></h3>
 <p><strong>Docker Compose — collect the last 100 lines from all Sentari services:</strong></p>
@@ -3438,7 +3438,7 @@ oc<span class="w"> </span>get<span class="w"> </span>events<span class="w"> </sp
 </code></pre></div>
 <p><strong>OpenShift/Kubernetes:</strong></p>
 <div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span>deployment<span class="w"> </span><span class="k">in</span><span class="w"> </span>sentari-api<span class="w"> </span>sentari-worker<span class="w"> </span>sentari-beat<span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== </span><span class="nv">$deployment</span><span class="s2"> ===&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>sentari-logs.txt
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"=== </span><span class="nv">$deployment</span><span class="s2"> ==="</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>sentari-logs.txt
 <span class="w">  </span>oc<span class="w"> </span>logs<span class="w"> </span>deployment/<span class="nv">$deployment</span><span class="w"> </span>--tail<span class="o">=</span><span class="m">100</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>sentari-logs.txt<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
 <span class="k">done</span>
 </code></pre></div>

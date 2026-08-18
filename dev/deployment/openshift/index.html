@@ -1401,17 +1401,17 @@ under OpenShift's restricted SCC adds UID complexity that external services avoi
 <p>Open <code>values.yaml</code> (evaluation) or <code>values-external-db.yaml</code> (production) and
 replace every <code>REPLACE-...</code> placeholder. Generate the cryptographic values:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># secretKey (64 hex)</span>
-python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import secrets; print(secrets.token_hex(32))&quot;</span>
+python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import secrets; print(secrets.token_hex(32))"</span>
 <span class="c1"># configKey (base64, 32 bytes)</span>
-python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import os,base64; print(base64.b64encode(os.urandom(32)).decode())&quot;</span>
+python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import os,base64; print(base64.b64encode(os.urandom(32)).decode())"</span>
 <span class="c1"># enrollmentToken / passwords</span>
-python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import secrets; print(secrets.token_hex(16))&quot;</span>
+python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import secrets; print(secrets.token_hex(16))"</span>
 </code></pre></div>
 <p>Set <code>route.host</code> to your OpenShift apps domain, e.g.
 <code>sentari.apps.cluster.example.com</code>.</p>
 <hr />
 <h2 id="step-3-authenticate-to-the-chart-registry">Step 3 — Authenticate to the chart registry<a class="headerlink" href="#step-3-authenticate-to-the-chart-registry" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&lt;PULL_TOKEN&gt;&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>helm<span class="w"> </span>registry<span class="w"> </span>login<span class="w"> </span>ghcr.io<span class="w"> </span>-u<span class="w"> </span>&lt;your-username&gt;<span class="w"> </span>--password-stdin
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"&lt;PULL_TOKEN&gt;"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>helm<span class="w"> </span>registry<span class="w"> </span>login<span class="w"> </span>ghcr.io<span class="w"> </span>-u<span class="w"> </span>&lt;your-username&gt;<span class="w"> </span>--password-stdin
 </code></pre></div>
 <p>(Skip if you mirror the chart internally — see <a href="#air-gap-internal-registry">Air-gap / internal registry</a>.)</p>
 <hr />
@@ -1434,14 +1434,14 @@ python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;
 For production, pre-create the Secret and set <code>secrets.existingSecretName</code>
 in <code>values-external-db.yaml</code>:</p>
 <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>sentari-credentials<span class="w"> </span>-n<span class="w"> </span>sentari<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--from-literal<span class="o">=</span>database-url<span class="o">=</span><span class="s2">&quot;postgresql+psycopg2://sentari:&lt;pw&gt;@&lt;host&gt;:5432/sentari&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--from-literal<span class="o">=</span>redis-url<span class="o">=</span><span class="s2">&quot;redis://:&lt;pw&gt;@&lt;host&gt;:6379/0&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--from-literal<span class="o">=</span>secret-key<span class="o">=</span><span class="s2">&quot;&lt;64-hex&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--from-literal<span class="o">=</span>config-key<span class="o">=</span><span class="s2">&quot;&lt;base64-32-byte&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--from-literal<span class="o">=</span>enrollment-token<span class="o">=</span><span class="s2">&quot;&lt;token&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--from-literal<span class="o">=</span>bootstrap-admin-email<span class="o">=</span><span class="s2">&quot;admin@example.com&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--from-literal<span class="o">=</span>bootstrap-admin-password<span class="o">=</span><span class="s2">&quot;&lt;pw&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--from-literal<span class="o">=</span>license-key<span class="o">=</span><span class="s2">&quot;&lt;license&gt;&quot;</span>
+<span class="w">  </span>--from-literal<span class="o">=</span>database-url<span class="o">=</span><span class="s2">"postgresql+psycopg2://sentari:&lt;pw&gt;@&lt;host&gt;:5432/sentari"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span>redis-url<span class="o">=</span><span class="s2">"redis://:&lt;pw&gt;@&lt;host&gt;:6379/0"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span>secret-key<span class="o">=</span><span class="s2">"&lt;64-hex&gt;"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span>config-key<span class="o">=</span><span class="s2">"&lt;base64-32-byte&gt;"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span>enrollment-token<span class="o">=</span><span class="s2">"&lt;token&gt;"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span>bootstrap-admin-email<span class="o">=</span><span class="s2">"admin@example.com"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span>bootstrap-admin-password<span class="o">=</span><span class="s2">"&lt;pw&gt;"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span>license-key<span class="o">=</span><span class="s2">"&lt;license&gt;"</span>
 </code></pre></div>
 <p>Then set <code>secrets.existingSecretName: sentari-credentials</code> and re-run the install.</p>
 <h3 id="using-external-managed-database-alternative-install-form">Using external managed database (alternative install form)<a class="headerlink" href="#using-external-managed-database-alternative-install-form" title="Permanent link">&para;</a></h3>
@@ -1451,12 +1451,12 @@ in <code>values-external-db.yaml</code>:</p>
 <span class="w">  </span>--set<span class="w"> </span>route.host<span class="o">=</span>sentari.apps.&lt;cluster-domain&gt;<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--set<span class="w"> </span>database.external<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--set<span class="w"> </span>redis.external<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.databaseUrl<span class="o">=</span><span class="s2">&quot;postgresql+psycopg2://sentari:&lt;password&gt;@&lt;host&gt;:5432/sentari&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.redisUrl<span class="o">=</span><span class="s2">&quot;redis://:&lt;password&gt;@&lt;host&gt;:6379/0&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.secretKey<span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import secrets; print(secrets.token_hex(32))&#39;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.enrollmentToken<span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import secrets; print(secrets.token_hex(16))&#39;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.bootstrapAdminEmail<span class="o">=</span><span class="s2">&quot;admin@yourorganisation.com&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.bootstrapAdminPassword<span class="o">=</span><span class="s2">&quot;ChangeMe123!&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.databaseUrl<span class="o">=</span><span class="s2">"postgresql+psycopg2://sentari:&lt;password&gt;@&lt;host&gt;:5432/sentari"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.redisUrl<span class="o">=</span><span class="s2">"redis://:&lt;password&gt;@&lt;host&gt;:6379/0"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.secretKey<span class="o">=</span><span class="s2">"</span><span class="k">$(</span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">'import secrets; print(secrets.token_hex(32))'</span><span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.enrollmentToken<span class="o">=</span><span class="s2">"</span><span class="k">$(</span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">'import secrets; print(secrets.token_hex(16))'</span><span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.bootstrapAdminEmail<span class="o">=</span><span class="s2">"admin@yourorganisation.com"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.bootstrapAdminPassword<span class="o">=</span><span class="s2">"ChangeMe123!"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--namespace<span class="w"> </span>sentari<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--create-namespace
 </code></pre></div>
@@ -1465,9 +1465,9 @@ in <code>values-external-db.yaml</code>:</p>
 <h2 id="step-5-verify-the-deployment">Step 5 — Verify the deployment<a class="headerlink" href="#step-5-verify-the-deployment" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>sentari<span class="w"> </span>-w<span class="w">        </span><span class="c1"># wait for all pods Ready</span>
 
-<span class="nv">ROUTE</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>route<span class="w"> </span>sentari-api<span class="w"> </span>-n<span class="w"> </span>sentari<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.spec.host}&#39;</span><span class="k">)</span>
+<span class="nv">ROUTE</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>route<span class="w"> </span>sentari-api<span class="w"> </span>-n<span class="w"> </span>sentari<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.spec.host}'</span><span class="k">)</span>
 curl<span class="w"> </span>-sf<span class="w"> </span>https://<span class="nv">$ROUTE</span>/api/health
-<span class="c1"># Expected: {&quot;status&quot;: &quot;ok&quot;, &quot;version&quot;: &quot;...&quot;}</span>
+<span class="c1"># Expected: {"status": "ok", "version": "..."}</span>
 </code></pre></div>
 <p>Open <code>https://$ROUTE</code> and log in with the bootstrap admin credentials from your
 values file. <strong>Change the password after first login.</strong></p>
@@ -1502,16 +1502,16 @@ the <code>proxy</code> section in your Helm values. This is required for Sentari
 </ul>
 <h3 id="helm-values">Helm values<a class="headerlink" href="#helm-values" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="nt">proxy</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">httpProxy</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://proxy.corp.internal:3128&quot;</span>
-<span class="w">  </span><span class="nt">httpsProxy</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://proxy.corp.internal:3128&quot;</span>
-<span class="w">  </span><span class="nt">noProxy</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;localhost,127.0.0.1,.cluster.local&quot;</span>
+<span class="w">  </span><span class="nt">httpProxy</span><span class="p">:</span><span class="w"> </span><span class="s">"http://proxy.corp.internal:3128"</span>
+<span class="w">  </span><span class="nt">httpsProxy</span><span class="p">:</span><span class="w"> </span><span class="s">"http://proxy.corp.internal:3128"</span>
+<span class="w">  </span><span class="nt">noProxy</span><span class="p">:</span><span class="w"> </span><span class="s">"localhost,127.0.0.1,.cluster.local"</span>
 </code></pre></div>
 <p>Or via <code>--set</code> flags:</p>
 <div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>sentari<span class="w"> </span>oci://ghcr.io/sentari-dev/sentari/charts/sentari<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--version<span class="w"> </span><span class="m">1</span>.0.0<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--namespace<span class="w"> </span>sentari<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>proxy.httpProxy<span class="o">=</span><span class="s2">&quot;http://proxy.corp.internal:3128&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>proxy.httpsProxy<span class="o">=</span><span class="s2">&quot;http://proxy.corp.internal:3128&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>proxy.httpProxy<span class="o">=</span><span class="s2">"http://proxy.corp.internal:3128"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>proxy.httpsProxy<span class="o">=</span><span class="s2">"http://proxy.corp.internal:3128"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>...
 </code></pre></div>
 <p>The chart automatically appends the release-prefixed service names (e.g. <code>sentari-db</code>,
@@ -1519,12 +1519,12 @@ the <code>proxy</code> section in your Helm values. This is required for Sentari
 the proxy.</p>
 <p>If your proxy requires authentication, include credentials in the URL:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">proxy</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">httpsProxy</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://username:password@proxy.corp.internal:3128&quot;</span>
+<span class="w">  </span><span class="nt">httpsProxy</span><span class="p">:</span><span class="w"> </span><span class="s">"http://username:password@proxy.corp.internal:3128"</span>
 </code></pre></div>
 <h3 id="verifying-proxy-connectivity">Verifying proxy connectivity<a class="headerlink" href="#verifying-proxy-connectivity" title="Permanent link">&para;</a></h3>
 <p>After deployment, verify the server can reach the license endpoint through the proxy:</p>
 <div class="highlight"><pre><span></span><code>oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>deploy/sentari-api<span class="w"> </span>-n<span class="w"> </span>sentari<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import httpx; print(httpx.get(&#39;https://license.sentari.dev/health&#39;).status_code)&quot;</span>
+<span class="w">  </span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import httpx; print(httpx.get('https://license.sentari.dev/health').status_code)"</span>
 </code></pre></div>
 <p>Expected: <code>200</code>.</p>
 <hr />
@@ -1648,7 +1648,7 @@ bundled DB path, prefer external DB/Redis if the StatefulSet pods fail admission
 <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>sentari<span class="w"> </span>&lt;pod-name&gt;
 </code></pre></div>
 <p><strong>API not healthy.</strong> Check logs for migration or configuration errors:</p>
-<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>logs<span class="w"> </span>deploy/sentari-api<span class="w"> </span>-n<span class="w"> </span>sentari<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;migration\|alembic\|error&quot;</span>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>logs<span class="w"> </span>deploy/sentari-api<span class="w"> </span>-n<span class="w"> </span>sentari<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">"migration\|alembic\|error"</span>
 </code></pre></div>
 <p>Common causes: placeholder <code>secretKey</code>; missing <code>licenseKey</code> (server boots read-only,
 writes return HTTP 402); wrong external DB/Redis URL.</p>

@@ -1322,10 +1322,10 @@ sudo<span class="w"> </span><span class="nv">$EDITOR</span><span class="w"> </sp
 <span class="c1"># 4. Enroll (one-shot: register + obtain mTLS cert + first upload)</span>
 sudo<span class="w"> </span>-u<span class="w"> </span>sentari<span class="w"> </span>sentari-agent-enterprise<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--config<span class="w"> </span>/etc/sentari/agent.conf<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--enroll-token<span class="w"> </span><span class="s2">&quot;&lt;your-enrollment-token&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--enroll-token<span class="w"> </span><span class="s2">"&lt;your-enrollment-token&gt;"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--upload
 <span class="c1">#   Recommended: pin the server TLS cert on first contact with</span>
-<span class="c1">#   --bootstrap-ca-fingerprint &quot;AA:BB:...&quot;  (ask your server operator)</span>
+<span class="c1">#   --bootstrap-ca-fingerprint "AA:BB:..."  (ask your server operator)</span>
 
 <span class="c1"># 5. Run as a service</span>
 sudo<span class="w"> </span>cp<span class="w"> </span>sentari-agent.service<span class="w"> </span>/etc/systemd/system/sentari-agent.service
@@ -1342,7 +1342,7 @@ then:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd </span><span class="n">windows</span>
 <span class="p">.\</span><span class="n">install</span><span class="p">.</span><span class="n">ps1</span> <span class="p">`</span>
   <span class="n">-ServerURL</span> <span class="n">https</span><span class="p">://&lt;</span><span class="n">server</span><span class="p">&gt;:</span><span class="n">8000</span> <span class="p">`</span>
-  <span class="n">-EnrollToken</span> <span class="s2">&quot;&lt;your-enrollment-token&gt;&quot;</span> <span class="p">`</span>
+  <span class="n">-EnrollToken</span> <span class="s2">"&lt;your-enrollment-token&gt;"</span> <span class="p">`</span>
   <span class="n">-AgentBinary</span> <span class="p">..\</span><span class="n">sentari-agent-windows-amd64</span><span class="p">.</span><span class="n">exe</span>
 </code></pre></div>
 <p>The installer writes the config, <strong>enrolls the agent</strong> (obtaining the mTLS
@@ -1360,7 +1360,7 @@ chmod<span class="w"> </span>+x<span class="w"> </span>install-macos.sh
 sudo<span class="w"> </span>./install-macos.sh<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--version<span class="w"> </span><span class="m">0</span>.1.4<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--server-url<span class="w"> </span>https://&lt;server&gt;:8000<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--enroll-token<span class="w"> </span><span class="s2">&quot;&lt;your-enrollment-token&gt;&quot;</span>
+<span class="w">  </span>--enroll-token<span class="w"> </span><span class="s2">"&lt;your-enrollment-token&gt;"</span>
 </code></pre></div>
 <blockquote>
 <p>The macOS binaries are not yet Apple-signed; the installer clears the

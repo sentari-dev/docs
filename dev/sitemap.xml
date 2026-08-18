@@ -2,74 +2,74 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://docs.sentari.dev/dev/</loc>
-         <lastmod>2026-08-06</lastmod>
+         <lastmod>2026-08-18</lastmod>
     </url>
     <url>
          <loc>https://docs.sentari.dev/dev/licensing/</loc>
-         <lastmod>2026-08-06</lastmod>
+         <lastmod>2026-08-18</lastmod>
     </url>
     <url>
          <loc>https://docs.sentari.dev/dev/release-notes/</loc>
-         <lastmod>2026-08-06</lastmod>
+         <lastmod>2026-08-18</lastmod>
     </url>
     <url>
          <loc>https://docs.sentari.dev/dev/troubleshooting/</loc>
-         <lastmod>2026-08-06</lastmod>
+         <lastmod>2026-08-18</lastmod>
     </url>
     <url>
          <loc>https://docs.sentari.dev/dev/administration/</loc>
-         <lastmod>2026-08-06</lastmod>
+         <lastmod>2026-08-18</lastmod>
     </url>
     <url>
          <loc>https://docs.sentari.dev/dev/agent/</loc>
-         <lastmod>2026-08-06</lastmod>
+         <lastmod>2026-08-18</lastmod>
     </url>
     <url>
          <loc>https://docs.sentari.dev/dev/agent/install/</loc>
-         <lastmod>2026-08-06</lastmod>
+         <lastmod>2026-08-18</lastmod>
     </url>
     <url>
          <loc>https://docs.sentari.dev/dev/agent/technical-reference/</loc>
-         <lastmod>2026-08-06</lastmod>
+         <lastmod>2026-08-18</lastmod>
     </url>
     <url>
          <loc>https://docs.sentari.dev/dev/api/</loc>
-         <lastmod>2026-08-06</lastmod>
+         <lastmod>2026-08-18</lastmod>
     </url>
     <url>
          <loc>https://docs.sentari.dev/dev/deployment/</loc>
-         <lastmod>2026-08-06</lastmod>
+         <lastmod>2026-08-18</lastmod>
     </url>
     <url>
          <loc>https://docs.sentari.dev/dev/deployment/configuration-reference/</loc>
-         <lastmod>2026-08-06</lastmod>
+         <lastmod>2026-08-18</lastmod>
     </url>
     <url>
          <loc>https://docs.sentari.dev/dev/deployment/docker-compose/</loc>
-         <lastmod>2026-08-06</lastmod>
+         <lastmod>2026-08-18</lastmod>
     </url>
     <url>
          <loc>https://docs.sentari.dev/dev/deployment/kubernetes/</loc>
-         <lastmod>2026-08-06</lastmod>
+         <lastmod>2026-08-18</lastmod>
     </url>
     <url>
          <loc>https://docs.sentari.dev/dev/deployment/openshift/</loc>
-         <lastmod>2026-08-06</lastmod>
+         <lastmod>2026-08-18</lastmod>
     </url>
     <url>
          <loc>https://docs.sentari.dev/dev/deployment/postgresql/</loc>
-         <lastmod>2026-08-06</lastmod>
+         <lastmod>2026-08-18</lastmod>
     </url>
     <url>
          <loc>https://docs.sentari.dev/dev/deployment/private-registry/</loc>
-         <lastmod>2026-08-06</lastmod>
+         <lastmod>2026-08-18</lastmod>
     </url>
     <url>
          <loc>https://docs.sentari.dev/dev/getting-started/concepts/</loc>
-         <lastmod>2026-08-06</lastmod>
+         <lastmod>2026-08-18</lastmod>
     </url>
     <url>
          <loc>https://docs.sentari.dev/dev/getting-started/quickstart/</loc>
-         <lastmod>2026-08-06</lastmod>
+         <lastmod>2026-08-18</lastmod>
     </url>
 </urlset>

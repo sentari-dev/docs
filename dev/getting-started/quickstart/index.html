@@ -1147,7 +1147,7 @@ cp<span class="w"> </span>.env.example<span class="w"> </span>.env
 <span class="c1"># Generate secrets (edit .env and set these values)</span>
 <span class="c1"># SENTARI_SECRET_KEY     — JWT signing key, 64 hex chars (openssl rand -hex 32)</span>
 <span class="c1"># SENTARI_CONFIG_KEY     — AES-256-GCM key for at-rest config secrets, base64 32 bytes</span>
-<span class="c1">#                          (python3 -c &#39;import os,base64; print(base64.b64encode(os.urandom(32)).decode())&#39;)</span>
+<span class="c1">#                          (python3 -c 'import os,base64; print(base64.b64encode(os.urandom(32)).decode())')</span>
 <span class="c1">#                          REQUIRED — without it, saving SMTP/SIEM/NVD/license</span>
 <span class="c1">#                          settings from the admin UI fails.</span>
 <span class="c1"># POSTGRES_PASSWORD      — random database password (note: NOT prefixed SENTARI_)</span>
@@ -1182,7 +1182,7 @@ scheduler, Postgres (TimescaleDB), and Redis. (Flower is opt-in via
 <p>Verify the API responds — the server listens on <strong>plain HTTP</strong> on port 8000;
 front it with a TLS-terminating reverse proxy in production:</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:8000/api/health
-<span class="c1"># -&gt; {&quot;status&quot;: &quot;ok&quot;, &quot;version&quot;: &quot;...&quot;}</span>
+<span class="c1"># -&gt; {"status": "ok", "version": "..."}</span>
 </code></pre></div>
 <hr />
 <h2 id="step-3-log-in">Step 3: Log In<a class="headerlink" href="#step-3-log-in" title="Permanent link">&para;</a></h2>
@@ -1212,10 +1212,10 @@ placed a TLS reverse proxy in front — recommended for any non-local access).</
 </ol>
 <div class="highlight"><pre><span></span><code><span class="c1"># Linux — enroll (one-time), then start as a service</span>
 chmod<span class="w"> </span>+x<span class="w"> </span>sentari-agent-enterprise
-sentari-agent-enterprise<span class="w"> </span>--config<span class="w"> </span>agent.conf<span class="w"> </span>--enroll-token<span class="w"> </span><span class="s2">&quot;&lt;your-enrollment-token&gt;&quot;</span><span class="w"> </span>--upload
+sentari-agent-enterprise<span class="w"> </span>--config<span class="w"> </span>agent.conf<span class="w"> </span>--enroll-token<span class="w"> </span><span class="s2">"&lt;your-enrollment-token&gt;"</span><span class="w"> </span>--upload
 
 <span class="c1"># Windows</span>
-sentari-agent-enterprise.exe<span class="w"> </span>--config<span class="w"> </span>agent.conf<span class="w"> </span>--enroll-token<span class="w"> </span><span class="s2">&quot;&lt;your-enrollment-token&gt;&quot;</span><span class="w"> </span>--upload
+sentari-agent-enterprise.exe<span class="w"> </span>--config<span class="w"> </span>agent.conf<span class="w"> </span>--enroll-token<span class="w"> </span><span class="s2">"&lt;your-enrollment-token&gt;"</span><span class="w"> </span>--upload
 </code></pre></div>
 <p>The agent will enroll, scan the device's package ecosystems (Python, npm,
 Maven, NuGet, and OS packages on deb/rpm hosts), and upload results.</p>

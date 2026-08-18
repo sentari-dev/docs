@@ -1586,7 +1586,7 @@ Override the registry at install time:</p>
 <span class="nt">image</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">registry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nexus.internal:8443</span>
 <span class="w">  </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sentari-dev/sentari/server</span>
-<span class="w">  </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0.0&quot;</span>
+<span class="w">  </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">"1.0.0"</span>
 
 <span class="nt">database</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">image</span><span class="p">:</span>
@@ -1631,8 +1631,8 @@ the signature with <code>cosign verify</code> in attestation mode):</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Install cosign (https://docs.sigstore.dev/cosign/installation/)</span>
 <span class="c1"># Replace the identity regexp with the actual release-workflow OIDC identity.</span>
 cosign<span class="w"> </span>verify<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--certificate-identity-regexp<span class="o">=</span><span class="s2">&quot;^https://github.com/sentari-dev/sentari/\.github/workflows/release\.yml@.*&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--certificate-oidc-issuer<span class="o">=</span><span class="s2">&quot;https://token.actions.githubusercontent.com&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--certificate-identity-regexp<span class="o">=</span><span class="s2">"^https://github.com/sentari-dev/sentari/\.github/workflows/release\.yml@.*"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--certificate-oidc-issuer<span class="o">=</span><span class="s2">"https://token.actions.githubusercontent.com"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>ghcr.io/sentari-dev/sentari/server:1.0.0
 </code></pre></div>
 <p>A valid signature produces output similar to:</p>
@@ -1648,11 +1648,11 @@ key-pinned verification.</p>
 <p>Release digests are published in the Sentari release notes and at
 <code>https://github.com/sentari-dev/sentari/releases</code>. Verify before transfer:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Get the digest from ghcr.io</span>
-docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="o">=</span><span class="s1">&#39;{{index .RepoDigests 0}}&#39;</span><span class="w"> </span>ghcr.io/sentari-dev/sentari/server:1.0.0
+docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="o">=</span><span class="s1">'{{index .RepoDigests 0}}'</span><span class="w"> </span>ghcr.io/sentari-dev/sentari/server:1.0.0
 
 <span class="c1"># Or with skopeo (no pull required)</span>
 skopeo<span class="w"> </span>inspect<span class="w"> </span>docker://ghcr.io/sentari-dev/sentari/server:1.0.0<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="p">|</span><span class="w"> </span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import sys,json; d=json.load(sys.stdin); print(d[&#39;Digest&#39;])&quot;</span>
+<span class="w">  </span><span class="p">|</span><span class="w"> </span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import sys,json; d=json.load(sys.stdin); print(d['Digest'])"</span>
 </code></pre></div>
 <p>Compare the output against the digest published in the release notes.</p>
 <hr />

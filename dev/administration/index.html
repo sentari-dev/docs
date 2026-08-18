@@ -2515,10 +2515,10 @@ sentari-redis       redis:7.2-alpine                      Up (healthy)
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>https://&lt;server-hostname&gt;/api/health
 </code></pre></div>
 <p>Healthy response:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w"> </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">}</span>
 </code></pre></div>
 <p>Degraded response (database unreachable):</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;degraded&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;unreachable&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;database&quot;</span><span class="p">]}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"degraded"</span><span class="p">,</span><span class="w"> </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w"> </span><span class="nt">"unreachable"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"database"</span><span class="p">]}</span>
 </code></pre></div>
 <p>Use this endpoint in your monitoring system. A 503 response should trigger an alert to your operations team.</p>
 <hr />
@@ -2588,15 +2588,15 @@ docker<span class="w"> </span>cp<span class="w"> </span>sentari-db:/tmp/sentari-
 </code></pre></div>
 <p>The <code>-F custom</code> flag produces a compressed binary dump. It is smaller than plain SQL and supports parallel restore with <code>pg_restore</code>.</p>
 <h3 id="backup-openshift">Backup — OpenShift<a class="headerlink" href="#backup-openshift" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nv">DB_POD</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>sentari-db<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span>
+<div class="highlight"><pre><span></span><code><span class="nv">DB_POD</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>sentari-db<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.items[0].metadata.name}'</span><span class="k">)</span>
 
-oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DB_POD</span><span class="s2">&quot;</span><span class="w"> </span>--<span class="w"> </span>pg_dump<span class="w"> </span><span class="se">\</span>
+oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="s2">"</span><span class="nv">$DB_POD</span><span class="s2">"</span><span class="w"> </span>--<span class="w"> </span>pg_dump<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-U<span class="w"> </span>sentari<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-d<span class="w"> </span>sentari<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-F<span class="w"> </span>custom<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-f<span class="w"> </span>/tmp/sentari-backup.dump
 
-oc<span class="w"> </span>cp<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DB_POD</span><span class="s2">&quot;</span>:/tmp/sentari-backup.dump<span class="w"> </span>./sentari-backup-<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d<span class="k">)</span>.dump
+oc<span class="w"> </span>cp<span class="w"> </span><span class="s2">"</span><span class="nv">$DB_POD</span><span class="s2">"</span>:/tmp/sentari-backup.dump<span class="w"> </span>./sentari-backup-<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d<span class="k">)</span>.dump
 </code></pre></div>
 <h3 id="restore-docker-compose">Restore — Docker Compose<a class="headerlink" href="#restore-docker-compose" title="Permanent link">&para;</a></h3>
 <blockquote>
@@ -2606,10 +2606,10 @@ oc<span class="w"> </span>cp<span class="w"> </span><span class="s2">&quot;</spa
 docker<span class="w"> </span>cp<span class="w"> </span>./sentari-backup-YYYYMMDD.dump<span class="w"> </span>sentari-db:/tmp/restore.dump
 
 <span class="c1"># Drop and recreate the database</span>
-docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-e<span class="w"> </span><span class="nv">PGPASSWORD</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$POSTGRES_PASSWORD</span><span class="s2">&quot;</span><span class="w"> </span>sentari-db<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;DROP DATABASE IF EXISTS sentari;&quot;</span>
-docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-e<span class="w"> </span><span class="nv">PGPASSWORD</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$POSTGRES_PASSWORD</span><span class="s2">&quot;</span><span class="w"> </span>sentari-db<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;CREATE DATABASE sentari;&quot;</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-e<span class="w"> </span><span class="nv">PGPASSWORD</span><span class="o">=</span><span class="s2">"</span><span class="nv">$POSTGRES_PASSWORD</span><span class="s2">"</span><span class="w"> </span>sentari-db<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">"DROP DATABASE IF EXISTS sentari;"</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-e<span class="w"> </span><span class="nv">PGPASSWORD</span><span class="o">=</span><span class="s2">"</span><span class="nv">$POSTGRES_PASSWORD</span><span class="s2">"</span><span class="w"> </span>sentari-db<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">"CREATE DATABASE sentari;"</span>
 
 <span class="c1"># Restore</span>
 docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sentari-db<span class="w"> </span>pg_restore<span class="w"> </span><span class="se">\</span>
@@ -2623,13 +2623,13 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 docker<span class="w"> </span>compose<span class="w"> </span>start<span class="w"> </span>sentari-api<span class="w"> </span>sentari-worker<span class="w"> </span>sentari-beat
 </code></pre></div>
 <h3 id="restore-openshift">Restore — OpenShift<a class="headerlink" href="#restore-openshift" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nv">DB_POD</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>sentari-db<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span>
+<div class="highlight"><pre><span></span><code><span class="nv">DB_POD</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>sentari-db<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.items[0].metadata.name}'</span><span class="k">)</span>
 
-oc<span class="w"> </span>cp<span class="w"> </span>./sentari-backup-YYYYMMDD.dump<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DB_POD</span><span class="s2">&quot;</span>:/tmp/restore.dump
+oc<span class="w"> </span>cp<span class="w"> </span>./sentari-backup-YYYYMMDD.dump<span class="w"> </span><span class="s2">"</span><span class="nv">$DB_POD</span><span class="s2">"</span>:/tmp/restore.dump
 
-oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DB_POD</span><span class="s2">&quot;</span><span class="w"> </span>--<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;DROP DATABASE IF EXISTS sentari;&quot;</span>
-oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DB_POD</span><span class="s2">&quot;</span><span class="w"> </span>--<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;CREATE DATABASE sentari;&quot;</span>
-oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DB_POD</span><span class="s2">&quot;</span><span class="w"> </span>--<span class="w"> </span>pg_restore<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-d<span class="w"> </span>sentari<span class="w"> </span>--no-privileges<span class="w"> </span>--no-owner<span class="w"> </span>/tmp/restore.dump
+oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="s2">"</span><span class="nv">$DB_POD</span><span class="s2">"</span><span class="w"> </span>--<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">"DROP DATABASE IF EXISTS sentari;"</span>
+oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="s2">"</span><span class="nv">$DB_POD</span><span class="s2">"</span><span class="w"> </span>--<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">"CREATE DATABASE sentari;"</span>
+oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="s2">"</span><span class="nv">$DB_POD</span><span class="s2">"</span><span class="w"> </span>--<span class="w"> </span>pg_restore<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-d<span class="w"> </span>sentari<span class="w"> </span>--no-privileges<span class="w"> </span>--no-owner<span class="w"> </span>/tmp/restore.dump
 </code></pre></div>
 <h3 id="recommended-backup-schedule">Recommended backup schedule<a class="headerlink" href="#recommended-backup-schedule" title="Permanent link">&para;</a></h3>
 <table>
@@ -2726,7 +2726,7 @@ agents pin this CA, and a lost CA key means re-enrolling the entire fleet.</p>
 <p><strong>Docker Compose:</strong></p>
 <ol>
 <li>Change the password inside PostgreSQL:
-   <div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>sentari-db<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;ALTER USER sentari PASSWORD &#39;new-strong-password&#39;;&quot;</span>
+   <div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>sentari-db<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">"ALTER USER sentari PASSWORD 'new-strong-password';"</span>
 </code></pre></div></li>
 <li>Update <code>POSTGRES_PASSWORD</code> in <code>deploy/.env</code></li>
 <li>Restart all services that connect to the database:
@@ -2748,7 +2748,7 @@ agents pin this CA, and a lost CA key means re-enrolling the entire fleet.</p>
 <h3 id="redis-password-redis_password">Redis password (<code>REDIS_PASSWORD</code>)<a class="headerlink" href="#redis-password-redis_password" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Update the password in Redis:
-   <div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>sentari-redis<span class="w"> </span>redis-cli<span class="w"> </span>CONFIG<span class="w"> </span>SET<span class="w"> </span>requirepass<span class="w"> </span><span class="s2">&quot;new-redis-password&quot;</span>
+   <div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>sentari-redis<span class="w"> </span>redis-cli<span class="w"> </span>CONFIG<span class="w"> </span>SET<span class="w"> </span>requirepass<span class="w"> </span><span class="s2">"new-redis-password"</span>
 </code></pre></div></li>
 <li>Update <code>REDIS_PASSWORD</code> in <code>deploy/.env</code></li>
 <li>Restart all services that connect to Redis:
@@ -3136,9 +3136,9 @@ rather than reaching the network.</p>
 <h3 id="openshift-helm">OpenShift (Helm)<a class="headerlink" href="#openshift-helm" title="Permanent link">&para;</a></h3>
 <p>In <code>values.yaml</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">proxy</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">httpProxy</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://proxy.yourorganisation.be:3128&quot;</span>
-<span class="w">  </span><span class="nt">httpsProxy</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://proxy.yourorganisation.be:3128&quot;</span>
-<span class="w">  </span><span class="nt">noProxy</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;localhost,127.0.0.1,.cluster.local&quot;</span>
+<span class="w">  </span><span class="nt">httpProxy</span><span class="p">:</span><span class="w"> </span><span class="s">"http://proxy.yourorganisation.be:3128"</span>
+<span class="w">  </span><span class="nt">httpsProxy</span><span class="p">:</span><span class="w"> </span><span class="s">"http://proxy.yourorganisation.be:3128"</span>
+<span class="w">  </span><span class="nt">noProxy</span><span class="p">:</span><span class="w"> </span><span class="s">"localhost,127.0.0.1,.cluster.local"</span>
 </code></pre></div>
 <p>Run <code>helm upgrade</code> to apply. The chart automatically appends internal Kubernetes service names to <code>noProxy</code> to prevent internal traffic from being routed through the proxy.</p>
 <h3 id="agent-proxy">Agent proxy<a class="headerlink" href="#agent-proxy" title="Permanent link">&para;</a></h3>
@@ -3149,7 +3149,7 @@ rather than reaching the network.</p>
 </code></pre></div>
 <h3 id="verify-proxy-connectivity">Verify proxy connectivity<a class="headerlink" href="#verify-proxy-connectivity" title="Permanent link">&para;</a></h3>
 <p>After configuration, trigger a CVE sync from <strong>Settings → CVE → Trigger Sync</strong> and monitor <code>sentari-worker</code> logs for connection errors:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>sentari-worker<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;proxy\|connect\|error&quot;</span>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>sentari-worker<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">"proxy\|connect\|error"</span>
 </code></pre></div>
 <p>A successful sync produces a log line similar to:</p>
 <div class="highlight"><pre><span></span><code>CVE feed sync completed: N packages correlated
@@ -3280,7 +3280,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>ps
 </li>
 <li>
 <p>Check the API logs for migration output:
-   <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>sentari-api<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;alembic\|migration\|Running upgrade&quot;</span>
+   <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>sentari-api<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">"alembic\|migration\|Running upgrade"</span>
 </code></pre></div></p>
 </li>
 </ol>
@@ -3289,7 +3289,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>ps
 <li>
 <p>Update <code>image.tag</code> in <code>values.yaml</code>:
    <div class="highlight"><pre><span></span><code><span class="nt">image</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.2.0&quot;</span>
+<span class="w">  </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">"1.2.0"</span>
 </code></pre></div></p>
 </li>
 <li>
@@ -3330,9 +3330,9 @@ oc<span class="w"> </span>rollout<span class="w"> </span>undo<span class="w"> </
 </ul>
 <h3 id="enabling-on-docker-compose">Enabling on Docker Compose<a class="headerlink" href="#enabling-on-docker-compose" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Set a strong basic-auth credential in your .env</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;SENTARI_FLOWER_BASIC_AUTH=admin:</span><span class="k">$(</span>openssl<span class="w"> </span>rand<span class="w"> </span>-base64<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;=+/&#39;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.env
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"SENTARI_FLOWER_BASIC_AUTH=admin:</span><span class="k">$(</span>openssl<span class="w"> </span>rand<span class="w"> </span>-base64<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">'=+/'</span><span class="k">)</span><span class="s2">"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.env
 
-<span class="c1"># Flower is in the &quot;ops&quot; profile — not started by default</span>
+<span class="c1"># Flower is in the "ops" profile — not started by default</span>
 docker<span class="w"> </span>compose<span class="w"> </span>--profile<span class="w"> </span>ops<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>sentari-flower
 
 <span class="c1"># Open http://127.0.0.1:5555/flower/ and authenticate with the credential above.</span>
@@ -3345,13 +3345,13 @@ docker<span class="w"> </span>compose<span class="w"> </span>--profile<span clas
 
 <span class="c1"># Option 1 — let the chart manage the Secret (dev / simple deploys).</span>
 <span class="nt">secrets</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">flowerBasicAuth</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;admin:longrandompasswordhere&quot;</span>
+<span class="w">  </span><span class="nt">flowerBasicAuth</span><span class="p">:</span><span class="w"> </span><span class="s">"admin:longrandompasswordhere"</span>
 
 <span class="c1"># Option 2 — use an externally-managed Secret (GitOps, vault-injected).</span>
 <span class="c1"># The referenced Secret MUST include a key named ``flower-basic-auth``</span>
 <span class="c1"># whose value is ``user:password``.</span>
 <span class="c1"># secrets:</span>
-<span class="c1">#   existingSecretName: &quot;sentari-shared-secrets&quot;</span>
+<span class="c1">#   existingSecretName: "sentari-shared-secrets"</span>
 </code></pre></div>
 <p>Upgrade the release:</p>
 <div class="highlight"><pre><span></span><code>helm<span class="w"> </span>upgrade<span class="w"> </span>&lt;release&gt;<span class="w"> </span>deploy/helm/sentari<span class="w"> </span>-f<span class="w"> </span>values-override.yaml

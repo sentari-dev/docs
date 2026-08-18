@@ -1431,12 +1431,12 @@ Celery workers, Celery Beat scheduler, TimescaleDB, and Redis.</p>
 Equivalent to Docker Compose but on Kubernetes.</p>
 <div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>sentari<span class="w"> </span>deploy/helm/sentari/<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--namespace<span class="w"> </span>sentari<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.secretKey<span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import secrets; print(secrets.token_hex(32))&#39;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.dbPassword<span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import secrets; print(secrets.token_hex(16))&#39;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.redisPassword<span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import secrets; print(secrets.token_hex(16))&#39;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.enrollmentToken<span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import secrets; print(secrets.token_hex(16))&#39;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.bootstrapAdminEmail<span class="o">=</span><span class="s2">&quot;admin@yourorganisation.com&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.bootstrapAdminPassword<span class="o">=</span><span class="s2">&quot;ChangeMe123!&quot;</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.secretKey<span class="o">=</span><span class="s2">"</span><span class="k">$(</span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">'import secrets; print(secrets.token_hex(32))'</span><span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.dbPassword<span class="o">=</span><span class="s2">"</span><span class="k">$(</span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">'import secrets; print(secrets.token_hex(16))'</span><span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.redisPassword<span class="o">=</span><span class="s2">"</span><span class="k">$(</span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">'import secrets; print(secrets.token_hex(16))'</span><span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.enrollmentToken<span class="o">=</span><span class="s2">"</span><span class="k">$(</span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">'import secrets; print(secrets.token_hex(16))'</span><span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.bootstrapAdminEmail<span class="o">=</span><span class="s2">"admin@yourorganisation.com"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.bootstrapAdminPassword<span class="o">=</span><span class="s2">"ChangeMe123!"</span>
 </code></pre></div>
 <h3 id="option-b-external-managed-database-recommended-for-production">Option B: External managed database (recommended for production)<a class="headerlink" href="#option-b-external-managed-database-recommended-for-production" title="Permanent link">&para;</a></h3>
 <p>Use this when you have an existing managed TimescaleDB / PostgreSQL and Redis service.</p>
@@ -1444,12 +1444,12 @@ Equivalent to Docker Compose but on Kubernetes.</p>
 <span class="w">  </span>--namespace<span class="w"> </span>sentari<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--set<span class="w"> </span>database.external<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--set<span class="w"> </span>redis.external<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.databaseUrl<span class="o">=</span><span class="s2">&quot;postgresql+psycopg2://sentari:&lt;password&gt;@&lt;host&gt;:5432/sentari&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.redisUrl<span class="o">=</span><span class="s2">&quot;redis://:&lt;password&gt;@&lt;host&gt;:6379/0&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.secretKey<span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import secrets; print(secrets.token_hex(32))&#39;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.enrollmentToken<span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import secrets; print(secrets.token_hex(16))&#39;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.bootstrapAdminEmail<span class="o">=</span><span class="s2">&quot;admin@yourorganisation.com&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.bootstrapAdminPassword<span class="o">=</span><span class="s2">&quot;ChangeMe123!&quot;</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.databaseUrl<span class="o">=</span><span class="s2">"postgresql+psycopg2://sentari:&lt;password&gt;@&lt;host&gt;:5432/sentari"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.redisUrl<span class="o">=</span><span class="s2">"redis://:&lt;password&gt;@&lt;host&gt;:6379/0"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.secretKey<span class="o">=</span><span class="s2">"</span><span class="k">$(</span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">'import secrets; print(secrets.token_hex(32))'</span><span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.enrollmentToken<span class="o">=</span><span class="s2">"</span><span class="k">$(</span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">'import secrets; print(secrets.token_hex(16))'</span><span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.bootstrapAdminEmail<span class="o">=</span><span class="s2">"admin@yourorganisation.com"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.bootstrapAdminPassword<span class="o">=</span><span class="s2">"ChangeMe123!"</span>
 </code></pre></div>
 <p>The chart creates the Kubernetes Secret for you from these values — no separate step required.</p>
 <h4 id="enterprise-secrets-management-vault-sealed-secrets-argo-cd">Enterprise secrets management (Vault, Sealed Secrets, Argo CD)<a class="headerlink" href="#enterprise-secrets-management-vault-sealed-secrets-argo-cd" title="Permanent link">&para;</a></h4>
@@ -1459,12 +1459,12 @@ them), pre-create the Secret outside Helm and reference it by name:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Create the Secret independently (e.g. via Vault, Sealed Secrets, or kubectl)</span>
 kubectl<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>sentari-credentials<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--namespace<span class="w"> </span>sentari<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--from-literal<span class="o">=</span>database-url<span class="o">=</span><span class="s2">&quot;postgresql+psycopg2://sentari:&lt;password&gt;@&lt;host&gt;:5432/sentari&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--from-literal<span class="o">=</span>redis-url<span class="o">=</span><span class="s2">&quot;redis://:&lt;password&gt;@&lt;host&gt;:6379/0&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--from-literal<span class="o">=</span>secret-key<span class="o">=</span><span class="s2">&quot;&lt;64-hex-char JWT key&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--from-literal<span class="o">=</span>enrollment-token<span class="o">=</span><span class="s2">&quot;&lt;enrollment token&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--from-literal<span class="o">=</span>bootstrap-admin-email<span class="o">=</span><span class="s2">&quot;admin@yourorganisation.com&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--from-literal<span class="o">=</span>bootstrap-admin-password<span class="o">=</span><span class="s2">&quot;&lt;password&gt;&quot;</span>
+<span class="w">  </span>--from-literal<span class="o">=</span>database-url<span class="o">=</span><span class="s2">"postgresql+psycopg2://sentari:&lt;password&gt;@&lt;host&gt;:5432/sentari"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span>redis-url<span class="o">=</span><span class="s2">"redis://:&lt;password&gt;@&lt;host&gt;:6379/0"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span>secret-key<span class="o">=</span><span class="s2">"&lt;64-hex-char JWT key&gt;"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span>enrollment-token<span class="o">=</span><span class="s2">"&lt;enrollment token&gt;"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span>bootstrap-admin-email<span class="o">=</span><span class="s2">"admin@yourorganisation.com"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span>bootstrap-admin-password<span class="o">=</span><span class="s2">"&lt;password&gt;"</span>
 
 <span class="c1"># Install — no secrets in Helm values</span>
 helm<span class="w"> </span>install<span class="w"> </span>sentari<span class="w"> </span>deploy/helm/sentari/<span class="w"> </span><span class="se">\</span>
@@ -1479,7 +1479,7 @@ This avoids maintaining a local copy of the chart directory and always pulls the
 specified version.</p>
 <p><strong>Authenticate first:</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Authenticate to the Sentari OCI registry with your pull token</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;PULL_TOKEN&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>helm<span class="w"> </span>registry<span class="w"> </span>login<span class="w"> </span>ghcr.io<span class="w"> </span>-u<span class="w"> </span>sentari-customer<span class="w"> </span>--password-stdin
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"PULL_TOKEN"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>helm<span class="w"> </span>registry<span class="w"> </span>login<span class="w"> </span>ghcr.io<span class="w"> </span>-u<span class="w"> </span>sentari-customer<span class="w"> </span>--password-stdin
 </code></pre></div>
 <p><strong>Install:</strong></p>
 <div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>sentari<span class="w"> </span>oci://ghcr.io/sentari-dev/sentari/charts/sentari<span class="w"> </span><span class="se">\</span>
@@ -1522,7 +1522,7 @@ kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> <
 <span class="c1"># Check the API health endpoint</span>
 kubectl<span class="w"> </span>port-forward<span class="w"> </span>svc/sentari-api<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span>-n<span class="w"> </span>sentari<span class="w"> </span><span class="p">&amp;</span>
 curl<span class="w"> </span>http://localhost:8000/api/health
-<span class="c1"># Expected: {&quot;status&quot;: &quot;ok&quot;, &quot;version&quot;: &quot;...&quot;}</span>
+<span class="c1"># Expected: {"status": "ok", "version": "..."}</span>
 </code></pre></div>
 <blockquote>
 <p><strong>License required for write operations:</strong> Without a valid license, the server
@@ -1540,22 +1540,22 @@ reach external CVE feeds, SIEM webhooks, or the license server.</p>
 locked-down enterprise clusters with egress filtering.</p>
 <h3 id="helm-values">Helm values<a class="headerlink" href="#helm-values" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="nt">proxy</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">httpProxy</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://proxy.corp.internal:3128&quot;</span>
-<span class="w">  </span><span class="nt">httpsProxy</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://proxy.corp.internal:3128&quot;</span>
-<span class="w">  </span><span class="nt">noProxy</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;localhost,127.0.0.1,.cluster.local&quot;</span>
+<span class="w">  </span><span class="nt">httpProxy</span><span class="p">:</span><span class="w"> </span><span class="s">"http://proxy.corp.internal:3128"</span>
+<span class="w">  </span><span class="nt">httpsProxy</span><span class="p">:</span><span class="w"> </span><span class="s">"http://proxy.corp.internal:3128"</span>
+<span class="w">  </span><span class="nt">noProxy</span><span class="p">:</span><span class="w"> </span><span class="s">"localhost,127.0.0.1,.cluster.local"</span>
 </code></pre></div>
 <p>Or via <code>--set</code> flags:</p>
 <div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>sentari<span class="w"> </span>deploy/helm/sentari/<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--namespace<span class="w"> </span>sentari<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>proxy.httpProxy<span class="o">=</span><span class="s2">&quot;http://proxy.corp.internal:3128&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>proxy.httpsProxy<span class="o">=</span><span class="s2">&quot;http://proxy.corp.internal:3128&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>proxy.httpProxy<span class="o">=</span><span class="s2">"http://proxy.corp.internal:3128"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>proxy.httpsProxy<span class="o">=</span><span class="s2">"http://proxy.corp.internal:3128"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>...<span class="w"> </span><span class="o">(</span>other<span class="w"> </span>values<span class="o">)</span>
 </code></pre></div>
 <p>The chart automatically appends release-prefixed service names (e.g. <code>sentari-db</code>,
 <code>sentari-redis</code>) to <code>NO_PROXY</code> so that internal traffic is never sent through the proxy.</p>
 <p>If your proxy requires authentication, include credentials in the URL:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">proxy</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">httpsProxy</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://username:password@proxy.corp.internal:3128&quot;</span>
+<span class="w">  </span><span class="nt">httpsProxy</span><span class="p">:</span><span class="w"> </span><span class="s">"http://username:password@proxy.corp.internal:3128"</span>
 </code></pre></div>
 <h3 id="verifying-proxy-connectivity">Verifying proxy connectivity<a class="headerlink" href="#verifying-proxy-connectivity" title="Permanent link">&para;</a></h3>
 <p>After deploying, log in to the dashboard, navigate to <strong>Settings</strong>, and trigger a
@@ -1667,7 +1667,7 @@ kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </
 </code></pre></div>
 <h3 id="api-does-not-become-healthy">API does not become healthy<a class="headerlink" href="#api-does-not-become-healthy" title="Permanent link">&para;</a></h3>
 <p>Check if database migrations succeeded:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>sentari<span class="w"> </span>deployment/sentari-api<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;migration\|alembic\|error&quot;</span>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>sentari<span class="w"> </span>deployment/sentari-api<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">"migration\|alembic\|error"</span>
 </code></pre></div>
 <h3 id="agent-cannot-connect-to-server">Agent cannot connect to server<a class="headerlink" href="#agent-cannot-connect-to-server" title="Permanent link">&para;</a></h3>
 <ol>

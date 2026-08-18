@@ -1264,13 +1264,13 @@ chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>.
 </code></pre></div>
 <p>Fill in <strong>every</strong> <code>REPLACE-WITH-...</code> value. Generate the cryptographic ones:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># SENTARI_SECRET_KEY (64 hex chars)</span>
-python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import secrets; print(secrets.token_hex(32))&quot;</span>
+python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import secrets; print(secrets.token_hex(32))"</span>
 
 <span class="c1"># SENTARI_CONFIG_KEY (base64, 32 bytes)</span>
-python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import os,base64; print(base64.b64encode(os.urandom(32)).decode())&quot;</span>
+python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import os,base64; print(base64.b64encode(os.urandom(32)).decode())"</span>
 
 <span class="c1"># SENTARI_ENROLLMENT_TOKEN / passwords</span>
-python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import secrets; print(secrets.token_hex(16))&quot;</span>
+python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import secrets; print(secrets.token_hex(16))"</span>
 </code></pre></div>
 <p><strong>Pin the release</strong> for production — set <code>VERSION=</code> to a specific tag instead of <code>latest</code>.</p>
 <hr />
@@ -1297,12 +1297,12 @@ accordingly (<code>docker volume ls</code> to confirm).</p>
 migrations and creates the bootstrap admin account.</p>
 <hr />
 <h2 id="step-4-verify-the-deployment">Step 4 — Verify the deployment<a class="headerlink" href="#step-4-verify-the-deployment" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="c1"># All services should be &quot;healthy&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># All services should be "healthy"</span>
 docker<span class="w"> </span>compose<span class="w"> </span>ps
 
 <span class="c1"># API health</span>
 curl<span class="w"> </span>-sf<span class="w"> </span>http://localhost:8000/api/health
-<span class="c1"># Expected: {&quot;status&quot;: &quot;ok&quot;, &quot;version&quot;: &quot;...&quot;}</span>
+<span class="c1"># Expected: {"status": "ok", "version": "..."}</span>
 </code></pre></div>
 <p>Then open the dashboard at <strong>http://<server>:8000</strong> and log in with the
 <code>SENTARI_BOOTSTRAP_ADMIN_EMAIL</code> / <code>SENTARI_BOOTSTRAP_ADMIN_PASSWORD</code> you set.

@@ -1211,11 +1211,11 @@ at migration time.</p>
 <span class="w">      </span><span class="nt">POSTGRES_USER</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sentari</span>
 <span class="w">      </span><span class="nt">POSTGRES_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${POSTGRES_PASSWORD}</span>
 <span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;127.0.0.1:5432:5432&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"127.0.0.1:5432:5432"</span>
 <span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">db-data:/var/lib/postgresql/data</span>
 <span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;CMD-SHELL&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;pg_isready</span><span class="nv"> </span><span class="s">-U</span><span class="nv"> </span><span class="s">sentari&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"CMD-SHELL"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"pg_isready</span><span class="nv"> </span><span class="s">-U</span><span class="nv"> </span><span class="s">sentari"</span><span class="p p-Indicator">]</span>
 <span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
 <span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
 <span class="w">      </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
@@ -1237,7 +1237,7 @@ ship a <code>values-postgres.yaml</code>):</p>
 <span class="w">  </span><span class="nt">image</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">registry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker.io</span>
 <span class="w">    </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span>
-<span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;16-alpine&quot;</span>
+<span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">"16-alpine"</span>
 </code></pre></div>
 <p>Apply at install time, supplying secrets either inline via <code>--set</code>, in the same
 overrides file, or through a pre-created Secret referenced with
@@ -1253,19 +1253,19 @@ Azure Database for PostgreSQL, etc.):</p>
 <div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>sentari<span class="w"> </span>deploy/helm/sentari/<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--namespace<span class="w"> </span>sentari<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--set<span class="w"> </span>database.external<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.databaseUrl<span class="o">=</span><span class="s2">&quot;postgresql+psycopg2://sentari:&lt;password&gt;@&lt;host&gt;:5432/sentari&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.secretKey<span class="o">=</span><span class="s2">&quot;&lt;jwt-signing-key&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.enrollmentToken<span class="o">=</span><span class="s2">&quot;&lt;token&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.bootstrapAdminEmail<span class="o">=</span><span class="s2">&quot;admin@yourorganisation.com&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.bootstrapAdminPassword<span class="o">=</span><span class="s2">&quot;&lt;password&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.databaseUrl<span class="o">=</span><span class="s2">"postgresql+psycopg2://sentari:&lt;password&gt;@&lt;host&gt;:5432/sentari"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.secretKey<span class="o">=</span><span class="s2">"&lt;jwt-signing-key&gt;"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.enrollmentToken<span class="o">=</span><span class="s2">"&lt;token&gt;"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.bootstrapAdminEmail<span class="o">=</span><span class="s2">"admin@yourorganisation.com"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.bootstrapAdminPassword<span class="o">=</span><span class="s2">"&lt;password&gt;"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--set<span class="w"> </span>redis.external<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--set<span class="w"> </span>secrets.redisUrl<span class="o">=</span><span class="s2">&quot;redis://:&lt;password&gt;@&lt;host&gt;:6379/0&quot;</span>
+<span class="w">  </span>--set<span class="w"> </span>secrets.redisUrl<span class="o">=</span><span class="s2">"redis://:&lt;password&gt;@&lt;host&gt;:6379/0"</span>
 </code></pre></div>
 <p>When <code>database.external=true</code>, the chart does not deploy a database StatefulSet.
 You are responsible for ensuring the database is accessible from the Sentari namespace
 and that the <code>sentari</code> database and user exist before deployment.</p>
 <p>Create the database and user if not already present:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">sentari</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="s1">&#39;&lt;password&gt;&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">sentari</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="s1">'&lt;password&gt;'</span><span class="p">;</span>
 <span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">sentari</span><span class="w"> </span><span class="k">OWNER</span><span class="w"> </span><span class="n">sentari</span><span class="p">;</span>
 </code></pre></div>
 <hr />
@@ -1336,7 +1336,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> 
 <ol>
 <li>Enable the extension in the existing database:</li>
 </ol>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>db<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-d<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;CREATE EXTENSION IF NOT EXISTS timescaledb;&quot;</span>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>db<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-d<span class="w"> </span>sentari<span class="w"> </span>-c<span class="w"> </span><span class="s2">"CREATE EXTENSION IF NOT EXISTS timescaledb;"</span>
 </code></pre></div>
 <ol>
 <li>Run Alembic migrations to convert <code>scan_results</code> to a hypertable:</li>
@@ -1350,7 +1350,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> 
 <li>Verify:</li>
 </ol>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>db<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>sentari<span class="w"> </span>-d<span class="w"> </span>sentari<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-c<span class="w"> </span><span class="s2">&quot;SELECT hypertable_name FROM timescaledb_information.hypertables;&quot;</span>
+<span class="w">  </span>-c<span class="w"> </span><span class="s2">"SELECT hypertable_name FROM timescaledb_information.hypertables;"</span>
 <span class="c1"># Expected: scan_results</span>
 </code></pre></div>
 <hr />

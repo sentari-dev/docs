@@ -1509,7 +1509,7 @@ Enrolls (if not already enrolled), scans, uploads, and exits. Suitable for sched
 <div class="highlight"><pre><span></span><code>sentari-agent-enterprise<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--server-url<span class="w"> </span>https://sentari.yourorg.com:8000<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--enroll-token-file<span class="w"> </span>/etc/sentari/enroll-token<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--bootstrap-ca-fingerprint<span class="w"> </span><span class="s2">&quot;aa:bb:cc:dd:...&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--bootstrap-ca-fingerprint<span class="w"> </span><span class="s2">"aa:bb:cc:dd:..."</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--upload
 </code></pre></div>
 Reads the enrollment token from a file (preventing exposure in the process list) and pins the server's TLS certificate fingerprint during the initial registration handshake. Use <code>--bootstrap-ca-fingerprint</code> on all first deployments in environments where the system trust store cannot be fully trusted.</p>
@@ -1525,7 +1525,7 @@ Runs continuously. Managed via systemd, Windows Service, or Kubernetes DaemonSet
 Writes a CycloneDX SBOM to disk after each scan — useful for air-gapped sites that need to extract SBOMs without a network connection to the server.</p>
 <p><strong>Ansible / scripted deployment with token file:</strong>
 <div class="highlight"><pre><span></span><code><span class="c1"># Write the token to a file with restricted permissions before invoking the agent</span>
-install<span class="w"> </span>-m<span class="w"> </span><span class="m">0600</span><span class="w"> </span>-o<span class="w"> </span>root<span class="w"> </span>-g<span class="w"> </span>root<span class="w"> </span>/dev/stdin<span class="w"> </span>/etc/sentari/enroll-token<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">SENTARI_TOKEN</span><span class="si">}</span><span class="s2">&quot;</span>
+install<span class="w"> </span>-m<span class="w"> </span><span class="m">0600</span><span class="w"> </span>-o<span class="w"> </span>root<span class="w"> </span>-g<span class="w"> </span>root<span class="w"> </span>/dev/stdin<span class="w"> </span>/etc/sentari/enroll-token<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">SENTARI_TOKEN</span><span class="si">}</span><span class="s2">"</span>
 
 sentari-agent-enterprise<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--server-url<span class="w"> </span>https://sentari.yourorg.com:8000<span class="w"> </span><span class="se">\</span>
