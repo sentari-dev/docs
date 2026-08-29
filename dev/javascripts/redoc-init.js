@@ -13,7 +13,10 @@ document$.subscribe(function () {
   Redoc.init(
     container.dataset.spec,
     {
-      hideDownloadButton: false,
+      // The published spec is filtered to public-safe paths by
+      // scripts/docs-sync-openapi.sh; still hide the one-click raw download so
+      // the served JSON isn't offered as a bulk artifact.
+      hideDownloadButton: true,
       expandResponses: "200,201",
       requiredPropsFirst: true,
       theme: { typography: { fontSize: "15px" } },
